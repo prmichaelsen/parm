@@ -167,7 +167,7 @@ We will extend the `webpack.config` for the project we wish to add swagger to. F
 You can now navigate to http://localhost:3333/api to see the explorer and http://localhost:3333/api-json to see the generated json.
 
 ## Help with PM2
-Check out [PM2 devhints](https://devhints.io/pm2).
+Check out [PM2 devhints](https://devhints.io/pm2). 
 
 ## Firebase hosting
 Followed this guide to set up firebase hosting.
