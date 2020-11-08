@@ -11,6 +11,8 @@ import { Option } from './firebase';
 import { useQueryParams, StringParam } from 'use-query-params'; 
 import Markdown from 'markdown-to-jsx';
 import SideBar from './SideBar';
+import { useFilter } from '@parm/react/filter-control';
+import CardContent from '@material-ui/core/CardContent';
 
 export default function Adventure(props) {
   const classes = useStyles();
@@ -28,9 +30,12 @@ export default function Adventure(props) {
   const fetchBefore = () => 
     setBeforeSize(beforeSize + 3); 
 
+  const { filter, control } = useFilter();
+
   const rootId = data.root && data.root.id;
   const focus = query.focus || rootId;
-  const nodes: Option[] = data.nodes;
+  const nodes: Option[] = data.nodes
+    .filter(v => filter(v.text));
   const focusNode = nodes.find(n => n.id === focus);
 
   const CreateCard = () => (
@@ -53,6 +58,9 @@ export default function Adventure(props) {
         </Markdown>
       </Typography>
         <div className={classes.cards}>
+          <CardContent>
+            {control}
+          </CardContent>
           {focus === 'create' && (
             <CreateCard/>
           )}
