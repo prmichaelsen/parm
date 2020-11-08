@@ -34,6 +34,25 @@ const setIsDark = (value: boolean) => {
 }
 
 /**
+ * whether or not to sort ascending,
+ * ie oldest first
+ */
+const sort = (): boolean => {
+  const key = 'f5-sort';
+  const value = localStorage.getItem(key);
+  if (!value) {
+    const initial = 'true';
+    localStorage.setItem(key, initial);
+  }
+  return value === 'true';
+}
+
+const toggleSort = () => {
+  const key = 'f5-sort';
+  localStorage.setItem(key, String(!sort()));
+}
+
+/**
  * super simple local storage.
  */
 export const storage = {
@@ -41,4 +60,6 @@ export const storage = {
   userId,
   /** theme */
   isDark, setIsDark,
+  /** sort */
+  sort, toggleSort,
 }

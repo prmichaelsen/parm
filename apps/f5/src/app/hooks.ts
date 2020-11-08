@@ -71,3 +71,25 @@ export const useThemePrefs = () => {
     toggleTop,
   };
 }
+
+interface SortState {
+  sortAscending: boolean;
+}
+
+const initialSortState: SortState = {
+  sortAscending: storage.sort(),
+}
+
+export const useSortState = () => {
+  const [state, setState] = useState(initialSortState);
+  const toggleSort = () => {
+    storage.toggleSort();
+    setState({
+      sortAscending: storage.sort(),
+    });
+  };
+  return {
+    ...state,
+    toggleSort,
+  };
+};

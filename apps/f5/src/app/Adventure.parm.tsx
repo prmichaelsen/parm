@@ -13,6 +13,15 @@ import Markdown from 'markdown-to-jsx';
 import SideBar from './SideBar';
 import { useFilter } from '@parm/react/filter-control';
 import CardContent from '@material-ui/core/CardContent';
+import { storage } from './storage';
+import Switch from '@material-ui/core/Switch';
+import Grid from '@material-ui/core/Grid';
+import { useSortState } from './hooks';
+
+const compareByTime = (a: Option, b: Option) => {
+  const result = +a.createTime.toDate() - +b.createTime.toDate();
+  return storage.sort() ? result : -result;
+}
 
 export default function Adventure(props) {
   const classes = useStyles();
@@ -36,9 +45,11 @@ export default function Adventure(props) {
   const focus = query.focus || rootId;
   const nodes: Option[] = data.nodes
     .filter(v => filter(v.text))
-    .sort((a, b) => +a.createTime.toDate() - +b.createTime.toDate())
+    .sort(compareByTime)
     ;
   const focusNode = nodes.find(n => n.id === focus);
+
+  const { toggleSort, sortAscending } = useSortState();
 
   const CreateCard = () => (
     <AdventureOptionCard 
@@ -61,7 +72,15 @@ export default function Adventure(props) {
       </Typography>
         <div className={classes.cards}>
           <CardContent>
-            {control}
+            <Grid container spacing={1}>
+              <Grid item xs={10}>
+                {control}
+              </Grid>
+              <Grid item xs={2}>
+                oldest first
+                <Switch checked={sortAscending} onChange={toggleSort}/>
+              </Grid>
+            </Grid>
           </CardContent>
           {focus === 'create' && (
             <CreateCard/>
