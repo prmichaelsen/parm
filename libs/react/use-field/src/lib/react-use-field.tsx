@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { TextField } from '@material-ui/core';
 
+import './react-use-field.scss';
+
 interface UseFieldProps {
   label: string;
   value: string;

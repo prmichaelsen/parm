@@ -38,7 +38,9 @@
       ],
       "@parm/react/reddit-crossposter": [
         "libs/react/reddit-crossposter/src/index.ts"
-      ]
+      ],
+      "@parm/react/filter-control": ["libs/react/filter-control/src/index.ts"],
+      "@parm/react/use-field": ["libs/react/use-field/src/index.ts"]
     },
     "noImplicitReturns": true,
     "esModuleInterop": true

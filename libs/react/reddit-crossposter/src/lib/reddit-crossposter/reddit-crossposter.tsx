@@ -2,7 +2,7 @@ import Button from '@material-ui/core/Button';
 import React from 'react';
 
 import './reddit-crossposter.scss';
-import { useField } from './use-field';
+import { useField } from '@parm/react/use-field';
 import { reddit } from '@parm/reddit';
 
 /* eslint-disable-next-line */
