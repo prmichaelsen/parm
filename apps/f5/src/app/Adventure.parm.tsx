@@ -35,7 +35,9 @@ export default function Adventure(props) {
   const rootId = data.root && data.root.id;
   const focus = query.focus || rootId;
   const nodes: Option[] = data.nodes
-    .filter(v => filter(v.text));
+    .filter(v => filter(v.text))
+    .sort((a, b) => +a.createTime.toDate() - +b.createTime.toDate())
+    ;
   const focusNode = nodes.find(n => n.id === focus);
 
   const CreateCard = () => (
