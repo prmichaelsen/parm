@@ -19,6 +19,7 @@ import { Admin } from './Admin';
 import { DateSubtracter } from '@parm/react/date-subtracter';
 import { RedditCrossposter } from '@parm/react/reddit-crossposter';
 import UserId from './UserId';
+import { Img } from './Img';
 
 export const Markdown = ({ children }) => {
   const { isDark } = useThemePrefs();
@@ -55,6 +56,7 @@ export const Markdown = ({ children }) => {
             />
           );
         },
+        img: Img,
         YoutubeLinkConverter,
         ImgUploader,
         Admin,
