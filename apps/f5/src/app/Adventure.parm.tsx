@@ -69,10 +69,12 @@ export default function Adventure(props) {
         <Markdown>
           {environment.header}
         </Markdown>
+      </Typography>
+      <Typography>
         {environment.metaDescription && (
-          <Markdown>
-            {environment.header}
-          </Markdown>
+            <Markdown>
+              {environment.metaDescription}
+            </Markdown>
         )}
       </Typography>
         <div className={classes.cards}>
