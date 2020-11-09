@@ -42,7 +42,7 @@ export default function Adventure(props) {
   const { filter, control } = useFilter();
 
   const rootId = data.root && data.root.id;
-  const focus = query.focus || rootId;
+  const focus = query.focus || 'create';
   const nodes: Option[] = data.nodes
     .filter(v => filter(v.text))
     .sort(compareByTime)
@@ -69,6 +69,11 @@ export default function Adventure(props) {
         <Markdown>
           {environment.header}
         </Markdown>
+        {environment.metaDescription && (
+          <Markdown>
+            {environment.header}
+          </Markdown>
+        )}
       </Typography>
         <div className={classes.cards}>
           <CardContent>
