@@ -141,23 +141,17 @@ export function useImageUpload() {
 
 /**
  * reference https://reacttraining.com/blog/react-router-v5-1/
+ * @deprecated currently deprecated because useMeta
+ * was driving up daily reads into quota limits. The view 
+ * counting was broken anyway. Metadata should be a part of
+ * the primary document to avoid two document reads for
+ * one logical set of data (more cost effective).
  */
 export function useNodeView(nodeId: string) {
-  const [{ to }] = useQueryParams({
-    to: StringParam,
-  });
-  const {meta, setMeta} = useMeta(nodeId);
-  useEffect(() => {
-    if (!nodeId)
-      return;
-    if (to === nodeId)
-      setMeta({
-        ...meta,
-        views: meta.views + 1,
-      }); 
-  }, [nodeId, to]);
+  // just return dummy meta.
+  // this isn't persisted anywhere.
   return {
-    views: meta.views,
+    views: 0,
   }
 }
 
@@ -175,28 +169,21 @@ export function useRoles() {
   return roles;
 }
 
+/*
+ * @deprecated currently deprecated because useMeta
+ * was driving up daily reads into quota limits. The view 
+ * counting was broken anyway. Metadata should be a part of
+ * the primary document to avoid two document reads for
+ * one logical set of data (more cost effective).
+ */
 export function useMeta(nodeId: string) {
   const [meta, setMeta] = useState({...initialNodeMeta});
-  useEffect(() => {
-    if (!nodeId)
-      return;
-    const unsub = db.collection(NodeMeta).doc(nodeId).onSnapshot(e => {
-      if (!e.exists) {
-        // initialize data if doc doesn't exist
-        db.collection(NodeMeta).doc(nodeId).set(meta);
-        return meta;
-      }
-      setMeta({
-        ...initialNodeMeta,
-        ...(e.data() as any),
-      });
-    });
-    return unsub;
-  }, [nodeId]);
+  // just return dummy meta or set meta locally.
+  // this isn't persisted anywhere.
   return {
     meta,
     setMeta: (meta: NodeMeta) => 
-      db.collection(NodeMeta).doc(nodeId).set(meta)
+      setMeta({ ...meta })
     ,
   };
 }
