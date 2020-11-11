@@ -65,8 +65,9 @@ export default function Adventure(props) {
         prev: [],
       };
     }
-    const children = data.nodes
-      .filter(n => current.children.includes(n.id))
+    const totalChildren = data.nodes
+      .filter(n => current.children.includes(n.id));
+    const children = totalChildren
       .map(n => weight(n))
       .sort((a, b) => b.weight - a.weight)
       .slice(0, numOptions) 
@@ -75,7 +76,7 @@ export default function Adventure(props) {
     const canReply = 
       (isPrompt || children.length === 0)
       && userId !== current.creatorId
-      && (children.length < maxResponses || maxResponses === -1)
+      && (totalChildren.length < maxResponses || maxResponses === -1)
       ;
     const prev: Option[] = [];
     let it = current;
