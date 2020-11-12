@@ -1,7 +1,4 @@
-import { 
-  firebase as firebaseSecrets,
-  dedupe,
-} from '@parm/util';
+import { firebase as firebaseSecrets } from '@parm/util';
 import * as firebase from 'firebase/app';
 import { environment } from '../environments/environment';
 
@@ -27,7 +24,7 @@ var db = firebase.firestore();
 
 const ImagesStore = `${app}/images`;
 console.log({
-  env, app, Node, NodeMeta, database
+  env, app, Node, NodeMeta
 });
 
 import { useState, useEffect, useCallback } from 'react';
@@ -51,48 +48,32 @@ export interface Option {
 
 interface State {
   nodes: Option[],
+  prev: Option[],
   root: Option,
   current: string,
 }
 
 const initialState: State = {
   nodes: [],
+  prev: [],
   root: null,
   current: null,
 }; 
 
-const nodesCache: {[id: string]: Option} = {};
-
-const fetchRootId = async () => {
-  const d = await db.collection(Node)
-    .where('isRoot', '==', true).get();
-  const rootId: string = d.docs.map(d => d.id)[0];
-  return rootId;
-}
-
-const fetch = async (id: string, forceFetch = false) => {
-  if (nodesCache[id] && !forceFetch)
-    return nodesCache[id];
-  const d = await db.collection(Node).doc(id).get();
-  console.log({
-    id, data: d.data()
-  });
-  const node: Option = {
+const fetch = async () => {
+  const e = await db.collection(Node).get();
+  const nodes: any[] = e.docs.map(d => ({
     id: d.id,
-    ...d.data() as Option,
+    ...d.data(),
     // firebase encodes \n as \\n
     text: d.data().text
       .replace(/\\\n/g, '\n')
       .replace(/\\\t/g, '\t')
-  };
-  nodesCache[id] = node;
-  return node;
-}
-
-const fetchMany = async (ids: string[]) => {
-  const promises = ids.map(id => fetch(id));
-  const results = await Promise.all(promises);
-  return results;
+  }));
+  return {
+    nodes,
+    root: nodes.find(n => n.isRoot),
+  }
 }
 
 interface NodeMeta {
@@ -212,15 +193,11 @@ export function useData() {
   const [state, setState] = useState({...initialState});
   const [guid, setGuid] = useState(uuidv1());
   const setCurrent = (current: string) => {
-    (async () => {
-      const currentNode = state.nodes.find(n => n.id === current);
-      const children = await fetchMany(currentNode.children);
-      setState({
-          ...state,
-          nodes: dedupe([...state.nodes, ...children], n => n.id),
-          current,
-      });
-    })();
+    setState({
+        ...state,
+        current,
+        prev: [...state.prev, state.nodes.find(n => n.id === current)],
+    });
   };
   async function updateNode({ text, id }: { text: string, id: string }) {
     const updateTime = firebase.firestore.Timestamp.fromDate(new Date());
@@ -228,15 +205,10 @@ export function useData() {
       text,
       updateTime,
     }, { merge: true });
-    const node = await fetch(id, true);
-    // remove the updated node from the list and
-    // reinsert it
-    let nodes = [...state.nodes];
-    let index = nodes.findIndex(n => n.id === id);
-    nodes = nodes.splice(index, 1, node);
-
+    const { nodes, root } = await fetch();
     setState({
         ...state,
+        root,
         nodes,
     });
   };
@@ -251,48 +223,33 @@ export function useData() {
       parent,
       type,
     });
-    const id = optionRef.id;
-    const option = await fetch(id);
+    const option: Option = {
+      creatorId: storage.userId(),
+      createTime,
+      text,
+      children: [],
+      parent,
+      type,
+      id: optionRef.id,
+    };
     let parentNode = state.nodes.find(n => n.id === parent);
     parentNode.children.push(option.id);
     await db.collection(Node).doc(parentNode.id).update(parentNode);
-    await fetch(parentNode.id, true);
+    const { nodes, root } = await fetch();
+    parentNode = nodes.find(n => n.id === parent);
     setState({
-      ...state,
-      nodes: Object.keys(nodesCache).map(id => nodesCache[id]),
-      current: option.id,
+        root,
+        nodes,
+        current: option.id,
+        prev: [...state.prev, option],
     });
   }
   useEffect(() => {
-    (async () => {
-      const rootId = await fetchRootId();
-      const root = await fetch(rootId);
-
-      const search = new URLSearchParams(window.location.search);
-      const to = search.get('to');
-      const from = search.get('from');
-
-      const nodes: Option[] = [
-        root,
-        ...(await fetchMany(root.children)),
-      ];
-      if (to !== undefined && to !== rootId) {
-        let searchId = from || rootId;
-        let it = await fetch(to);
-        nodes.push(...await fetchMany(it.children));
-        while (it && it.id !== searchId && it.parent) {
-          nodes.push(it);
-          const parent = await fetch(it.parent);
-          it = parent;
-        }
-      }
-      
-      setState({
+    fetch().then(({nodes, root}) => setState({
         ...state,
         nodes,
         root,
-      });
-    })();
+      }));
   }, [guid]);
   return {
     state,

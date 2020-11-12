@@ -201,16 +201,6 @@ export const AdventureOptionCard = (row: any) => {
                         </IconButton>
                       </Grid>
                     )}
-                    {row.showBackButton && (
-                      <Grid item>
-                        <IconButton
-                          onClick={() => history.goBack()}
-                          disabled={from === to}
-                        >
-                          <ArrowUpwardIcon />
-                        </IconButton>
-                      </Grid>
-                    )}
                   </Grid>
                 </CardActions>
               )}

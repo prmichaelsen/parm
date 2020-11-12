@@ -30,3 +30,14 @@ export const initConfig = <T>(config: T): Complete<T> => {
 } 
 
 export const range = size => [...Array(size).keys()]; 
+
+export function dedupe<T>(items: T[], accessor: (a: T) => string) {
+  let unique = {};
+  items.forEach(function(i) {
+    if(!unique[accessor(i)]) {
+      unique[accessor(i)] = true;
+    }
+  });
+  const uniqueKeys = Object.keys(unique);
+  return items.filter(n => uniqueKeys.some(k => k === accessor(n)));
+}
