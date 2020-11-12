@@ -36,6 +36,11 @@ export interface Environment {
   title: string,
   /** the firebase host to deploy to, eg 'stacktracecards' */
   host: string,
+  /** 
+   * the database to use with firebase, according 
+   * to the firebase secrets.
+  */
+  database?: string;
 }
 
 interface OtherOptions {

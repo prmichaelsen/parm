@@ -7,19 +7,20 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/storage';
 
-// Initialize Cloud Firestore through Firebase
-// Initialize Firebase
-firebase.initializeApp(firebaseSecrets);
-
-var db = firebase.firestore();
-
 // only dev uses separate data collections.
 // prod and qa share their data collections.
 const env = environment.stage === 'dev' ? 'dev' : null;
 const app = environment.app;
+const database = environment.database || 'default';
 const Node = env ? `${env}.${app}` : app;
 const NodeMeta = `${app}.meta`;
 const Roles = `${app}.roles`;
+
+// Initialize Cloud Firestore through Firebase
+// Initialize Firebase
+firebase.initializeApp(firebaseSecrets[database]);
+
+var db = firebase.firestore();
 
 const ImagesStore = `${app}/images`;
 console.log({

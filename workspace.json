@@ -81,8 +81,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/react/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/react/**"]
+            "tsConfig": [
+              "apps/react/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/react/**"
+            ]
           }
         },
         "storybook": {
@@ -135,7 +140,9 @@
               "apps/greenroom-ui/src/favicon.ico",
               "apps/greenroom-ui/src/assets"
             ],
-            "styles": ["apps/greenroom-ui/src/styles.scss"],
+            "styles": [
+              "apps/greenroom-ui/src/styles.scss"
+            ],
             "scripts": [],
             "webpackConfig": "@nrwl/react/plugins/webpack"
           },
@@ -182,7 +189,10 @@
               "apps/greenroom-ui/tsconfig.app.json",
               "apps/greenroom-ui/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/greenroom-ui/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/greenroom-ui/**"
+            ]
           }
         },
         "test": {
@@ -215,8 +225,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/greenroom-ui-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/greenroom-ui-e2e/**"]
+            "tsConfig": [
+              "apps/greenroom-ui-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/greenroom-ui-e2e/**"
+            ]
           }
         }
       }
@@ -234,7 +249,9 @@
             "outputPath": "dist/apps/greenroom-rest-api",
             "main": "apps/greenroom-rest-api/src/main.ts",
             "tsConfig": "apps/greenroom-rest-api/tsconfig.app.json",
-            "assets": ["apps/greenroom-rest-api/src/assets"],
+            "assets": [
+              "apps/greenroom-rest-api/src/assets"
+            ],
             "webpackConfig": "apps/greenroom-rest-api/webpack.config.ts"
           },
           "configurations": {
@@ -269,7 +286,10 @@
               "apps/greenroom-rest-api/tsconfig.app.json",
               "apps/greenroom-rest-api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/greenroom-rest-api/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/greenroom-rest-api/**"
+            ]
           }
         },
         "test": {
@@ -294,7 +314,10 @@
               "libs/greenroom-interface/tsconfig.lib.json",
               "libs/greenroom-interface/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/greenroom-interface/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/greenroom-interface/**"
+            ]
           }
         },
         "test": {
@@ -319,7 +342,10 @@
               "libs/greenroom-rest-client/tsconfig.lib.json",
               "libs/greenroom-rest-client/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/greenroom-rest-client/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/greenroom-rest-client/**"
+            ]
           }
         },
         "test": {
@@ -344,7 +370,10 @@
               "libs/greenroom-dto/tsconfig.lib.json",
               "libs/greenroom-dto/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/greenroom-dto/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/greenroom-dto/**"
+            ]
           }
         },
         "test": {
@@ -369,7 +398,10 @@
               "libs/util/tsconfig.lib.json",
               "libs/util/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/util/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/util/**"
+            ]
           }
         },
         "test": {
@@ -399,7 +431,9 @@
               "apps/names-not-numbers/src/favicon.ico",
               "apps/names-not-numbers/src/assets"
             ],
-            "styles": ["apps/names-not-numbers/src/styles.scss"],
+            "styles": [
+              "apps/names-not-numbers/src/styles.scss"
+            ],
             "scripts": [],
             "webpackConfig": "@nrwl/react/plugins/webpack"
           },
@@ -447,7 +481,10 @@
               "apps/names-not-numbers/tsconfig.app.json",
               "apps/names-not-numbers/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/names-not-numbers/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/names-not-numbers/**"
+            ]
           }
         },
         "test": {
@@ -480,8 +517,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/names-not-numbers-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/names-not-numbers-e2e/**"]
+            "tsConfig": [
+              "apps/names-not-numbers-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/names-not-numbers-e2e/**"
+            ]
           }
         }
       }
@@ -504,7 +546,9 @@
               "apps/move-it-app/src/favicon.ico",
               "apps/move-it-app/src/assets"
             ],
-            "styles": ["apps/move-it-app/src/styles.scss"],
+            "styles": [
+              "apps/move-it-app/src/styles.scss"
+            ],
             "scripts": [],
             "webpackConfig": "@nrwl/react/plugins/webpack"
           },
@@ -552,7 +596,10 @@
               "apps/move-it-app/tsconfig.app.json",
               "apps/move-it-app/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/move-it-app/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/move-it-app/**"
+            ]
           }
         },
         "test": {
@@ -585,8 +632,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/move-it-app-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/move-it-app-e2e/**"]
+            "tsConfig": [
+              "apps/move-it-app-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/move-it-app-e2e/**"
+            ]
           }
         }
       }
@@ -604,7 +656,10 @@
               "libs/react/use-dimensions/tsconfig.lib.json",
               "libs/react/use-dimensions/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/react/use-dimensions/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/react/use-dimensions/**"
+            ]
           }
         },
         "test": {
@@ -657,7 +712,10 @@
               "libs/node-util/tsconfig.lib.json",
               "libs/node-util/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/node-util/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/node-util/**"
+            ]
           }
         },
         "test": {
@@ -682,7 +740,10 @@
               "libs/reddit/tsconfig.lib.json",
               "libs/reddit/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/reddit/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/reddit/**"
+            ]
           }
         },
         "test": {
@@ -708,8 +769,13 @@
             "main": "apps/f5/src/main.tsx",
             "polyfills": "apps/f5/src/polyfills.ts",
             "tsConfig": "apps/f5/tsconfig.app.json",
-            "assets": ["apps/f5/src/favicon.ico", "apps/f5/src/assets"],
-            "styles": ["apps/f5/src/styles.scss"],
+            "assets": [
+              "apps/f5/src/favicon.ico",
+              "apps/f5/src/assets"
+            ],
+            "styles": [
+              "apps/f5/src/styles.scss"
+            ],
             "scripts": [],
             "webpackConfig": "@nrwl/react/plugins/webpack",
             "fileReplacements": [
@@ -805,8 +871,13 @@
             "main": "apps/f5/src/main.tsx",
             "polyfills": "apps/f5/src/polyfills.ts",
             "tsConfig": "apps/f5/tsconfig.app.json",
-            "assets": ["apps/f5/src/favicon.ico", "apps/f5/src/assets"],
-            "styles": ["apps/f5/src/styles.scss"],
+            "assets": [
+              "apps/f5/src/favicon.ico",
+              "apps/f5/src/assets"
+            ],
+            "styles": [
+              "apps/f5/src/styles.scss"
+            ],
             "scripts": [],
             "webpackConfig": "@nrwl/react/plugins/webpack"
           },
@@ -908,7 +979,10 @@
               "apps/f5/tsconfig.app.json",
               "apps/f5/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/f5/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/f5/**"
+            ]
           }
         },
         "test": {
@@ -941,8 +1015,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/f5-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/f5-e2e/**"]
+            "tsConfig": [
+              "apps/f5-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/f5-e2e/**"
+            ]
           }
         }
       }
@@ -968,8 +1047,13 @@
           "builder": "@nrwl/linter:lint",
           "options": {
             "linter": "eslint",
-            "tsConfig": ["apps/hello-world/tsconfig.app.json"],
-            "exclude": ["**/node_modules/**", "!apps/hello-world/**/*"]
+            "tsConfig": [
+              "apps/hello-world/tsconfig.app.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/hello-world/**/*"
+            ]
           }
         },
         "test": {
@@ -1030,7 +1114,9 @@
           "builder": "@nrwl/linter:lint",
           "options": {
             "linter": "eslint",
-            "tsConfig": ["apps/function-create-checkout/tsconfig.app.json"],
+            "tsConfig": [
+              "apps/function-create-checkout/tsconfig.app.json"
+            ],
             "exclude": [
               "**/node_modules/**",
               "!apps/function-create-checkout/**/*"
@@ -1154,7 +1240,10 @@
               "libs/react/filter-control/tsconfig.lib.json",
               "libs/react/filter-control/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/react/filter-control/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/react/filter-control/**/*"
+            ]
           }
         },
         "test": {
@@ -1179,7 +1268,10 @@
               "libs/react/use-field/tsconfig.lib.json",
               "libs/react/use-field/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/react/use-field/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/react/use-field/**/*"
+            ]
           }
         },
         "test": {
