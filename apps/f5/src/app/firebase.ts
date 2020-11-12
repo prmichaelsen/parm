@@ -70,18 +70,23 @@ const fetchRootId = async () => {
   return rootId;
 }
 
-const fetch = async (id: string, forceFetch = false) => {
+const fetch = async (id: string, forceFetch = false): Promise<Option | undefined> => {
   if (nodesCache[id] && !forceFetch)
     return nodesCache[id];
   const d = await db.collection(Node).doc(id).get();
+  const data = d.data();
   console.log({
-    id, data: d.data()
+    id, data,
   });
+  if (data === null || data === undefined) {
+    console.error(`No data found for option with id: ${id}`);
+    return undefined;
+  }
   const node: Option = {
     id: d.id,
-    ...d.data() as Option,
+    ...data as Option,
     // firebase encodes \n as \\n
-    text: d.data().text
+    text: data.text
       .replace(/\\\n/g, '\n')
       .replace(/\\\t/g, '\t')
   };
@@ -89,10 +94,10 @@ const fetch = async (id: string, forceFetch = false) => {
   return node;
 }
 
-const fetchMany = async (ids: string[]) => {
+const fetchMany = async (ids: string[]): Promise<Array<Option>> => {
   const promises = ids.map(id => fetch(id));
   const results = await Promise.all(promises);
-  return results;
+  return results.filter(n => n !== null && n !== undefined);
 }
 
 interface NodeMeta {

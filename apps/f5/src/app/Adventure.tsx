@@ -12,6 +12,7 @@ import { Option } from './firebase';
 import { useQueryParams, StringParam } from 'use-query-params'; 
 import Markdown from 'markdown-to-jsx';
 import SideBar from './SideBar';
+import { dedupe } from '@parm/util';
 
 function hashCode(s) {
   for(var i = 0, h = 0; i < s.length; i++)
@@ -89,7 +90,7 @@ export default function Adventure(props) {
       current,
       canReply,
       isPrompt,
-      children,
+      children: dedupe(children, n => n.id),
       prev: prev.reverse(),
     };
   }

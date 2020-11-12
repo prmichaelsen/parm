@@ -840,6 +840,10 @@
                 {
                   "replace": "apps/f5/src/app/EndMessage.tsx",
                   "with": "apps/f5/src/app/EndMessage.parm.tsx"
+                },
+                {
+                  "replace": "apps/f5/src/app/firebase.ts",
+                  "with": "apps/f5/src/app/firebase.parm.ts"
                 }
               ]
             },
@@ -922,6 +926,10 @@
                 {
                   "replace": "apps/f5/src/app/EndMessage.tsx",
                   "with": "apps/f5/src/app/EndMessage.parm.tsx"
+                },
+                {
+                  "replace": "apps/f5/src/app/firebase.ts",
+                  "with": "apps/f5/src/app/firebase.parm.ts"
                 }
               ]
             },
