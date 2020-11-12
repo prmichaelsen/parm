@@ -77,7 +77,7 @@ interface SortState {
 }
 
 const initialSortState: SortState = {
-  sortAscending: storage.sort(),
+  sortAscending: storage.sort() || true, 
 }
 
 export const useSortState = () => {
