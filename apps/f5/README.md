@@ -58,6 +58,9 @@ This script:
 * updates the dist with some assets
 * deploys to firebase hosting 
 
+### Data Backup
+See `./tools/scripts/f5/backup.ts` for a method to download all firestore data.
+
 ### Roadmap
 * tweak UI to be less frustrating 🟡6️⃣
 * left-to-right and top-to-bottom toggles 🟢3️⃣
