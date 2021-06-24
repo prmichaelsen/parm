@@ -1,12 +1,12 @@
 import React from 'react';
  
-export const YoutubeEmbed = (embedId) => 
-  embedId && (
+export const YoutubeEmbed = (props) => {
+  return (
   <div className="video-responsive">
     <iframe
       width="560"
       height="315"
-      src="https://www.youtube.com/embed/E7wJTI-1dvQ"
+      src={`https://www.youtube.com/embed/${props.embedId}`}
       title="YouTube video player"
       frameBorder="0"
       allow="accelerometer;
@@ -17,4 +17,4 @@ export const YoutubeEmbed = (embedId) =>
         picture-in-picture"
       allowFullScreen></iframe>
   </div>
-)
+)};
