@@ -2,7 +2,17 @@ import Snoowrap, { Submission, Subreddit } from 'snoowrap';
 import { reddit } from './reddit';
 
 describe('reddit', () => {
-  it('should work', async () => {
+  var originalTimeout;
+
+  beforeEach(function() {
+      originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
+      jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000000;
+  });
+
+  afterEach(function() {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
+  });
+  it.skip('should work', async () => {
     expect(await (await reddit().getDefaultSubreddits()).length).toBeGreaterThan(0);
   });
   it('should fetch subreddit', async () => {
@@ -42,5 +52,12 @@ describe('reddit', () => {
       title: 'test',
     });
     expect(crosspostResult).not.toBeNull();
+  });
+  it('should pull oauth scopes', async (done) => {
+    const snoo = reddit();
+    const scopes = await (snoo.getOauthScopeList());
+    console.log(scopes);
+    expect(scopes).not.toBeNull();
+    done();
   });
 });

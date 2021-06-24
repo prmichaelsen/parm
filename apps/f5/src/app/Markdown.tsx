@@ -15,6 +15,7 @@ import { YoutubeLinkConverter } from './YoutubeLinkConverter';
 import { ImgUploader } from './ImageUploader';
 import { ImgViewer } from './ImageViewer';
 import { YoutubeEmbed } from './YoutubeEmbed';
+import { OAuth20 } from './OAuth2.0';
 import { Admin } from './Admin';
 
 import { DateSubtracter } from '@parm/react/date-subtracter';
@@ -69,6 +70,7 @@ export const Markdown = ({ children }) => {
         ReactRedditPoster,
         UserId,
         YoutubeEmbed,
+        OAuth20,
       },
     }}>
       {children}
