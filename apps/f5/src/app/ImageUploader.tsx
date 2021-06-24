@@ -5,6 +5,8 @@ import { useImageUpload } from './firebase';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'; 
 import Button from '@material-ui/core/Button';
+import { getImageUrl } from './utils';
+import { environment } from '../environments/environment';
   
 type onChange = (files: File[], pictures: string[]) => void
 const initialPending: File[] = [];
@@ -20,11 +22,11 @@ export const ImgUploader = () => {
     ]);
   }
 
-  const upload = useCallback(() => {
-    pending.forEach(async f => {
+  const upload = useCallback(async () => {
+    await Promise.all(pending.map(async f => {
       try {
         const result = await uploadImage(f);
-        const url = await result.ref.getDownloadURL();
+        const url = getImageUrl({filename: `${result.ref.name}`});
         setCompleted(prev => [
           url,
           ...prev,
@@ -33,7 +35,7 @@ export const ImgUploader = () => {
       } catch (e) {
         console.log(e)
       }
-    });
+    }));
   }, [pending]);
 
   return (

@@ -31,6 +31,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { storage } from './storage';
 import uuidv1 from 'uuid/v1';
 import { StringParam, useQueryParams } from 'use-query-params';
+import { getImageUrl } from './utils';
 
 export interface RoleDocument {
   roles: string[];
@@ -107,9 +108,9 @@ export function useImages(limit: number = 1000) {
       pageToken: pageToken,
     }).then(async (result) => {
       setPageToken(result.nextPageToken);
-      setUrls(await Promise.all(result.items.map(i =>
-        i.getDownloadURL()
-      )));
+      setUrls(await Promise.all(result.items.map(async i => {
+        return getImageUrl({filename: i.name});
+      })));
     }).catch((e) => { throw new (e); });
   }
   if (pageToken === null)
@@ -123,7 +124,8 @@ export function useImages(limit: number = 1000) {
 export function useImageUpload() {
   const uploadImage = async (file: File) => {
     const uuid = uuidv1();
-    const id = `${ImagesStore}/${uuid}`;
+    const ext = file.type.split('/')[1];
+    const id = `${ImagesStore}/${uuid}.${ext}`;
     const ref = firebase.storage().ref(id);
     const metadata = {
       contentType: file.type,
@@ -163,7 +165,7 @@ export function useRoles() {
     db.collection(Roles).doc(userId).onSnapshot(e => {
       const doc = e.data();
       if (!doc)
-        return [];
+        return;
       setRoles(doc.roles || []);
     });
   });

@@ -1,15 +1,38 @@
 import * as admin from 'firebase-admin';
-(global as any).XMLHttpRequest = require("xhr2");
-const stream = require('stream')
 import { firebaseAdminSdk } from '@parm/util';
 
-const firebaseProjectId = 'parm-names-not-numbers';
-const firebaseDatabaseUrl = 'databaseURL: "https://parm-names-not-numbers.firebaseio.com';
+var current = new Date();
+const stamp = (marker) => {
+  var date2 = new Date(); // 5:00 PM
 
+  // the following is to handle cases where the times are on the opposite side of
+  // midnight e.g. when you want to get the difference between 9:00 PM and 5:00 AM
+
+  if (date2 < current) {
+    date2.setDate(date2.getDate() + 1);
+  }
+
+  var diff = (date2 as any) - (current as any);
+  console.log(marker, diff);
+  current = date2;
+}
+
+const firebaseProjectId = 'com-f5-parm';
+const firebaseDatabaseUrl = 'databaseURL: "https://com-f5-parm.firebaseio.com';
+
+stamp('pre init');
 admin.initializeApp({
   credential: admin.credential.cert(firebaseAdminSdk[firebaseProjectId] as any),
   databaseURL: firebaseDatabaseUrl,
 });
+stamp('init');
+
+const app = 'parm';
+const ImagesStore = `${app}/images`;
+const bucketName = `${firebaseProjectId}.appspot.com`;
+const bucket = admin.storage().bucket(bucketName);
+bucket.makePublic();
+stamp('fetch bucket');
 
 export const functionImageHost = async (req: any, res?: any) => {
 
@@ -17,27 +40,8 @@ export const functionImageHost = async (req: any, res?: any) => {
   const fp = req.url.split('/');
   const end = fp[fp.length - 1];
   const name = end.split('.')[0];
-
-  const app = 'parm';
-  const ImagesStore = `${app}/images`;
-  const filePath = `${ImagesStore}/${name}`;
-  const bucketName = 'parm-names-not-numbers.appspot.com';
-  const bucket = admin.storage().bucket(bucketName);
-  const image = bucket.file(filePath);
-  const [exists] = await image.exists();
-  if (!exists)
+  if (!name)
     return res.sendStatus(404);
-  await image.makePublic();
-  const r = image.createReadStream();
-  const ps = new stream.PassThrough() // <---- this makes a trick with stream error handling
-  stream.pipeline(
-   r,
-   ps, // <---- this makes a trick with stream error handling
-   (err) => {
-    if (err) {
-      console.log(err) // No such file or any other kind of error
-      return res.sendStatus(400); 
-    }
-  })
-  ps.pipe(res) // <---- this makes a trick with stream error handling
+
+  return res.redirect(`https://storage.googleapis.com/${bucketName}/${ImagesStore}/${name}`);
 };
