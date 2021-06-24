@@ -62,6 +62,7 @@ This script:
 See `./tools/scripts/f5/backup.ts` for a method to download all firestore data.
 
 ### Roadmap
+* use OAuth2.0 for reddit auth 🔴9️⃣
 * tweak UI to be less frustrating 🟡6️⃣
 * left-to-right and top-to-bottom toggles 🟢3️⃣
 * set default top-to-bottom via device media query 🟢3️⃣
@@ -70,7 +71,6 @@ See `./tools/scripts/f5/backup.ts` for a method to download all firestore data.
 * share options 🟢3️⃣
 * some notification system for when someone has replied to your option that previously had 0 children 0️⃣
 * report 0️⃣
-* edit 0️⃣
 * music sharing app 0️⃣
 * animate button slider 0️⃣
 * animate new option loading 0️⃣
@@ -89,6 +89,9 @@ The newest features are at the top of this list.
 * markdown support
 * cookie to enforce users can't reply to self
 * random option selection re-selects on every render
+* edit 0️⃣
+* youtube embed
+* direct image linking for sites like reddit
 
 ### Not on roadmap
 * replies

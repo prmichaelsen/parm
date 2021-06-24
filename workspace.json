@@ -1349,6 +1349,34 @@
           }
         }
       }
+    },
+    "react-reddit-poster": {
+      "root": "libs/react/reddit-poster",
+      "sourceRoot": "libs/react/reddit-poster/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/react/reddit-poster/tsconfig.lib.json",
+              "libs/react/reddit-poster/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/react/reddit-poster/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/react/reddit-poster/jest.config.js",
+            "tsConfig": "libs/react/reddit-poster/tsconfig.spec.json"
+          }
+        }
+      }
     }
   },
   "cli": {

@@ -67,6 +67,7 @@
     "react-dnd-html5-backend": "^10.0.2",
     "react-dnd-touch-backend": "^10.0.2",
     "react-dom": "^16.12.0",
+    "react-helmet": "^6.1.0",
     "react-hover-observer": "^2.1.1",
     "react-images-upload": "^1.2.8",
     "react-infinite-scroll-component": "^5.1.0",

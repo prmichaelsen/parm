@@ -97,10 +97,13 @@ my principle of one component per lib.
 
 Additionally, you will get storybooks for free. Just create a `.stories.tsx`.
 
+I strongly recommend using `--dry-run` to preview your changes.
 ```sh
 nx generate @nrwl/react:library --name=date-add --directory=react --no-interactive --dry-run
 nx generate @nrwl/react:component --name=DateSubtracter --project=react-date-subtracter --export --no-interactive --dry-run 
 ```
+
+Make sure to use `nx`, not `ng`.
 
 Libraries are sharable across libraries and applications. They can be imported from `@parm/mylib`.
 

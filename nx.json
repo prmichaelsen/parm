@@ -17,12 +17,7 @@
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
       "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "test",
-          "e2e"
-        ]
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
       }
     }
   },
@@ -32,18 +27,14 @@
     },
     "react": {
       "tags": [],
-      "implicitDependencies": [
-        "react-use-viewport-size"
-      ]
+      "implicitDependencies": ["react-use-viewport-size"]
     },
     "greenroom-ui": {
       "tags": []
     },
     "greenroom-ui-e2e": {
       "tags": [],
-      "implicitDependencies": [
-        "greenroom-ui"
-      ]
+      "implicitDependencies": ["greenroom-ui"]
     },
     "greenroom-rest-api": {
       "tags": []
@@ -65,18 +56,14 @@
     },
     "names-not-numbers-e2e": {
       "tags": [],
-      "implicitDependencies": [
-        "names-not-numbers"
-      ]
+      "implicitDependencies": ["names-not-numbers"]
     },
     "move-it-app": {
       "tags": []
     },
     "move-it-app-e2e": {
       "tags": [],
-      "implicitDependencies": [
-        "move-it-app"
-      ]
+      "implicitDependencies": ["move-it-app"]
     },
     "react-use-dimensions": {
       "tags": []
@@ -95,9 +82,7 @@
     },
     "f5-e2e": {
       "tags": [],
-      "implicitDependencies": [
-        "f5"
-      ]
+      "implicitDependencies": ["f5"]
     },
     "hello-world": {
       "tags": []
@@ -118,6 +103,9 @@
       "tags": []
     },
     "function-image-host": {
+      "tags": []
+    },
+    "react-reddit-poster": {
       "tags": []
     }
   }

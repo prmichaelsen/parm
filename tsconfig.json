@@ -12,12 +12,8 @@
     "importHelpers": true,
     "target": "es2017",
     "module": "commonjs",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2017"
-    ],
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
@@ -25,48 +21,30 @@
       "@parm/react/use-viewport-size": [
         "libs/react/use-viewport-size/src/index.ts"
       ],
-      "@parm/greenroom-interface": [
-        "libs/greenroom-interface/src/index.ts"
-      ],
+      "@parm/greenroom-interface": ["libs/greenroom-interface/src/index.ts"],
       "@parm/greenroom-rest-client": [
         "libs/greenroom-rest-client/src/index.ts"
       ],
-      "@parm/greenroom-dto": [
-        "libs/greenroom-dto/src/index.ts"
-      ],
-      "@parm/util": [
-        "libs/util/src/index.ts"
-      ],
-      "@parm/react/use-dimensions": [
-        "libs/react/use-dimensions/src/index.ts"
-      ],
+      "@parm/greenroom-dto": ["libs/greenroom-dto/src/index.ts"],
+      "@parm/util": ["libs/util/src/index.ts"],
+      "@parm/react/use-dimensions": ["libs/react/use-dimensions/src/index.ts"],
       "@parm/react/use-overflow-state": [
         "libs/react/use-overflow-state/src/index.ts"
       ],
-      "@parm/node-util": [
-        "libs/node-util/src/index.ts"
-      ],
-      "@parm/reddit": [
-        "libs/reddit/src/index.ts"
-      ],
+      "@parm/node-util": ["libs/node-util/src/index.ts"],
+      "@parm/reddit": ["libs/reddit/src/index.ts"],
       "@parm/react/date-subtracter": [
         "libs/react/date-subtracter/src/index.ts"
       ],
       "@parm/react/reddit-crossposter": [
         "libs/react/reddit-crossposter/src/index.ts"
       ],
-      "@parm/react/filter-control": [
-        "libs/react/filter-control/src/index.ts"
-      ],
-      "@parm/react/use-field": [
-        "libs/react/use-field/src/index.ts"
-      ]
+      "@parm/react/filter-control": ["libs/react/filter-control/src/index.ts"],
+      "@parm/react/use-field": ["libs/react/use-field/src/index.ts"],
+      "@parm/react/reddit-poster": ["libs/react/reddit-poster/src/index.ts"]
     },
     "noImplicitReturns": true,
     "esModuleInterop": true
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }
