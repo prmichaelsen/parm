@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "nx": "nx",
+    "firebase": "firebase",
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
@@ -128,6 +129,7 @@
     "dotenv": "6.2.0",
     "eslint": "6.1.0",
     "execa": "^4.0.3",
+    "firebase-tools": "^9.14.0",
     "firestore-export-import": "^0.8.0",
     "ghooks": "^2.0.4",
     "jest": "24.1.0",
