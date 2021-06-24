@@ -13,7 +13,7 @@ const main = async () => {
   const config = {
     firebaseSecretsPath: './env/parm-app.json',
     firebaseDatabaseUrl: 'https://parm-app.firebaseio.com',
-  };
+  }
 
   let finalConfigLocation = config.firebaseSecretsPath;
   if (!path.isAbsolute(config.firebaseSecretsPath)) {

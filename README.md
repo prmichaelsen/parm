@@ -176,8 +176,9 @@ https://www.youtube.com/watch?v=NrkFBmBFA6k
 
 ## Create a firebase google cloud function
 ```sh
-nx generate @joelcode/gcp-function:http function-name
+npm run nx -- generate @joelcode/gcp-function:http function-name
 ```
+
 Don't put it in a sub dir because that somehow breaks stuff.
 
 See [gcp-function] for more info.
@@ -186,7 +187,11 @@ Secrets management:
 * https://cloud.google.com/functions/docs/env-var
 
 ```
-gcloud functions deploy FUNCTION_NAME --set-env-vars FOO=bar
+npm run nx -- deploy FUNCTION_NAME --set-env-vars FOO=bar
+npm run nx -- build function-name
+# test the changes locally
+npm run nx -- serve function-name 
+npm run nx -- deploy function-name 
 ```
 
 ### Stripe

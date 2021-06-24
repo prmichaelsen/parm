@@ -1282,6 +1282,73 @@
           }
         }
       }
+    },
+    "function-image-host": {
+      "root": "apps/function-image-host",
+      "sourceRoot": "apps/function-image-host/src",
+      "projectType": "application",
+      "prefix": "function-image-host",
+      "schematics": {},
+      "architect": {
+        "serve": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              {
+                "command": "npx @google-cloud/functions-framework --target functionImageHost --source ./dist/apps/function-image-host"
+              }
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "apps/function-image-host/tsconfig.app.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/function-image-host/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/function-image-host/jest.config.js",
+            "tsConfig": "apps/function-image-host/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@joelcode/gcp-function:build",
+          "options": {
+            "outputPath": "dist/apps/function-image-host",
+            "main": "apps/function-image-host/src/index.ts",
+            "yamlConfig": "apps/function-image-host/src/environments/.production.yaml",
+            "tsConfig": "apps/function-image-host/tsconfig.app.json",
+            "packageJson": "apps/function-image-host/package.json"
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false
+            }
+          }
+        },
+        "deploy": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              {
+                "command": "gcloud functions deploy functionImageHost --trigger-http --runtime nodejs10 --region us-central1 --env-vars-file ./dist/apps/function-image-host/.production.yaml --source ./dist/apps/function-image-host --max-instances 10 --allow-unauthenticated"
+              }
+            ]
+          }
+        }
+      }
     }
   },
   "cli": {

@@ -49,7 +49,7 @@ For more dev info, see [DEV_README](./DEV_README.md).
 To deploy all f5 apps:
 ```sh
 # *requires npm i -g typescript ts-node
-./tools/scripts/f5/deploy.ts
+./tools/scripts/f5/0-deploy.ts
 ```
 
 This script:
