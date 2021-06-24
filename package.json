@@ -124,6 +124,7 @@
     "@types/uuid": "^3.4.7",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "8.0.6",
+    "case-changes": "^1.2.0",
     "cypress": "3.6.1",
     "cypress-plugin-snapshots": "^1.2.9",
     "dotenv": "6.2.0",

@@ -1,8 +1,9 @@
-#!/usr/bin/env node 
+#!/usr/bin/env ts-node 
 const fs = require('fs');
 const path = require('path');
 const firebase = require('firebase-admin');
 const nunjucks = require('nunjucks');
+const Camel = require('case-changes').Camel
 
 nunjucks.configure({
   autoescape: false,
@@ -45,8 +46,9 @@ const main = async () => {
   const location = 'libs';
   const packageName = 'util';
   Object.keys(secrets).forEach(secret => {
-    const fp = `../${location}/${packageName}/env/secrets/${secret}.ts`;
-    writeJson({ fp, data: secrets[secret], name: secret });
+    const secretExportName = Camel.getStringCamelCased(secret);
+    const fp = `../../../${location}/${packageName}/env/secrets/${secret}.ts`;
+    writeJson({ fp, data: secrets[secret], name: secretExportName });
   });
 }
 main();

@@ -1,18 +1,14 @@
 import * as admin from 'firebase-admin';
 (global as any).XMLHttpRequest = require("xhr2");
 const stream = require('stream')
-import secrets from './secrets';
+import { firebaseAdminSdk } from '@parm/util';
 
-const firebaseSecretsPath = './apps/function-image-host/src/parm-names-not-numbers.json';
+const firebaseProjectId = 'parm-names-not-numbers';
 const firebaseDatabaseUrl = 'databaseURL: "https://parm-names-not-numbers.firebaseio.com';
-const config = {
-  firebaseSecretsPath,
-  firebaseDatabaseUrl,
-}
 
 admin.initializeApp({
-  credential: admin.credential.cert(secrets as any),
-  databaseURL: config.firebaseDatabaseUrl,
+  credential: admin.credential.cert(firebaseAdminSdk[firebaseProjectId] as any),
+  databaseURL: firebaseDatabaseUrl,
 });
 
 export const functionImageHost = async (req: any, res?: any) => {
@@ -23,12 +19,22 @@ export const functionImageHost = async (req: any, res?: any) => {
 
   const app = 'parm';
   const ImagesStore = `${app}/images`;
-  const bucket = 'parm-names-not-numbers.appspot.com';
-  const image = await admin.storage().bucket(bucket).file(`${ImagesStore}/${name}`);
+  const filePath = `${ImagesStore}/${name}`;
+  const bucketName = 'parm-names-not-numbers.appspot.com';
+  const bucket = admin.storage().bucket(bucketName);
+  const fetchImage = async () => {
+    const image = bucket.file(filePath);
+    if (!image)
+      throw new Error();
+    return null;
+  }
+  const image = await fetchImage();
+  if (image === null) {
+    return res.sendStatus(404);
+  }
   await image.makePublic();
   const r = image.createReadStream();
   const ps = new stream.PassThrough() // <---- this makes a trick with stream error handling
-  console.log(image.metadata);
   stream.pipeline(
    r,
    ps, // <---- this makes a trick with stream error handling
