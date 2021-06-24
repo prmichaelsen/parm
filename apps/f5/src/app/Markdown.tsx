@@ -14,6 +14,7 @@ import { useStyles } from './useStyles';
 import { YoutubeLinkConverter } from './YoutubeLinkConverter';
 import { ImgUploader } from './ImageUploader';
 import { ImgViewer } from './ImageViewer';
+import { YoutubeEmbed } from './YoutubeEmbed';
 import { Admin } from './Admin';
 
 import { DateSubtracter } from '@parm/react/date-subtracter';
@@ -65,6 +66,7 @@ export const Markdown = ({ children }) => {
         DateSubtracter,
         RedditCrossposter,
         UserId,
+        YoutubeEmbed,
       },
     }}>
       {children}
