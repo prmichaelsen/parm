@@ -56,7 +56,7 @@ export const OAuth20 = () => {
         refreshToken: response.data.refresh_token,
       }
       setToken(token);
-      RedditTokenManager().set(token);
+      RedditTokenManager.set(token);
   }, [code]);
 
   return (
