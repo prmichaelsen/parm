@@ -830,12 +830,12 @@
                   "with": "./apps/f5/src/environments/parm.ts"
                 },
                 {
-                  "replace": "apps/f5/src/app/Adventure.tsx",
-                  "with": "apps/f5/src/app/Adventure.parm.tsx"
-                },
-                {
                   "replace": "apps/f5/src/app/AdventureOptionCard.tsx",
                   "with": "apps/f5/src/app/AdventureOptionCard.parm.tsx"
+                },
+                {
+                  "replace": "apps/f5/src/app/Adventure.tsx",
+                  "with": "apps/f5/src/app/Adventure.parm.tsx"
                 },
                 {
                   "replace": "apps/f5/src/app/EndMessage.tsx",
@@ -858,6 +858,23 @@
                 {
                   "replace": "apps/f5/src/environments/environment.ts",
                   "with": "./apps/f5/src/environments/stacktrace.ts"
+                }
+              ]
+            },
+            "codegumi": {
+              "outputPath": "dist/apps/codegumi",
+              "fileReplacements": [
+                {
+                  "replace": "apps/f5/src/environments/environment.ts",
+                  "with": "./apps/f5/src/environments/codegumi.ts"
+                },
+                {
+                  "replace": "apps/f5/src/app/Adventure.tsx",
+                  "with": "apps/f5/src/app/Adventure.codegumi.tsx"
+                },
+                {
+                  "replace": "apps/f5/src/app/AdventureOptionCard.tsx",
+                  "with": "apps/f5/src/app/AdventureOptionCard.codegumi.tsx"
                 }
               ]
             }
@@ -912,12 +929,12 @@
                   "with": "./apps/f5/src/environments/parm.ts"
                 },
                 {
-                  "replace": "apps/f5/src/app/Adventure.tsx",
-                  "with": "apps/f5/src/app/Adventure.parm.tsx"
-                },
-                {
                   "replace": "apps/f5/src/app/AdventureOptionCard.tsx",
                   "with": "apps/f5/src/app/AdventureOptionCard.parm.tsx"
+                },
+                {
+                  "replace": "apps/f5/src/app/Adventure.tsx",
+                  "with": "apps/f5/src/app/Adventure.parm.tsx"
                 },
                 {
                   "replace": "apps/f5/src/app/EndMessage.tsx",
@@ -940,6 +957,23 @@
                 {
                   "replace": "apps/f5/src/environments/environment.ts",
                   "with": "./apps/f5/src/environments/stacktrace.ts"
+                }
+              ]
+            },
+            "codegumi": {
+              "outputPath": "dist/apps/codegumi",
+              "fileReplacements": [
+                {
+                  "replace": "apps/f5/src/environments/environment.ts",
+                  "with": "./apps/f5/src/environments/codegumi.ts"
+                },
+                {
+                  "replace": "apps/f5/src/app/Adventure.tsx",
+                  "with": "apps/f5/src/app/Adventure.codegumi.tsx"
+                },
+                {
+                  "replace": "apps/f5/src/app/AdventureOptionCard.tsx",
+                  "with": "apps/f5/src/app/AdventureOptionCard.codegumi.tsx"
                 }
               ]
             }
@@ -969,6 +1003,9 @@
             },
             "stacktrace": {
               "buildTarget": "f5:build:stacktrace"
+            },
+            "codegumi": {
+              "buildTarget": "f5:build:codegumi"
             }
           }
         },

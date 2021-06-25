@@ -104,6 +104,21 @@
           "destination": "/index.html"
         }
       ]
+    },
+    {
+      "target": "codegumi",
+      "public": "dist/apps/codegumi",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
     }
   ]
 }
