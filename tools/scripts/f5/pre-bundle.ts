@@ -13,7 +13,7 @@ nunjucks.configure({
   autoescape: false,
 }); 
 
-export const preBundle = async () => {
+export const preBundle = async (appNames = []) => {
   const env = environment();
   const collection = `${env}.parm.f5.apps`;
 
@@ -37,34 +37,36 @@ export const preBundle = async () => {
   );
   
   const apps: App[] = e.docs.map(d => d.data() as App);
-  apps.forEach(app => {
-    console.log(`pre-bundling ${app.app}...`);
-    // save the app config in the source dir
-    const fp = `./apps/f5/src/environments/${app.app}.ts`;
-    writeEnv({ fp, data: app });
+  apps
+    .filter(app => appNames.some(name => app.app === name))
+    .forEach(app => {
+      console.log(`pre-bundling ${app.app}...`);
+      // save the app config in the source dir
+      const fp = `./apps/f5/src/environments/${app.app}.ts`;
+      writeEnv({ fp, data: app });
 
-    // dynamically replace any files
-    // that include the name of the app
-    // as a suffix, eg ./file.parm.ts
-    // will overwrite the default ./file.ts
-    const suffix = `.${app.app}.ts`;
-    const replacements = files
-      .filter(f => f.includes(suffix))
-      .map(f => ({
-        replace: f.replace(suffix, '.ts'),
-        with: f, 
-      }));
+      // dynamically replace any files
+      // that include the name of the app
+      // as a suffix, eg ./file.parm.ts
+      // will overwrite the default ./file.ts
+      const suffix = `.${app.app}.ts`;
+      const replacements = files
+        .filter(f => f.includes(suffix))
+        .map(f => ({
+          replace: f.replace(suffix, '.ts'),
+          with: f, 
+        }));
 
-    const configuration = {
-      "outputPath": `dist/apps/${app.app}`,
-      "fileReplacements": [
-        {
-          "replace": "apps/f5/src/environments/environment.ts",
-          "with": fp,
-        },
-        ...replacements,
-      ]
-    };
+      const configuration = {
+        "outputPath": `dist/apps/${app.app}`,
+        "fileReplacements": [
+          {
+            "replace": "apps/f5/src/environments/environment.ts",
+            "with": fp,
+          },
+          ...replacements,
+        ]
+      };
 
     // right now, callously overwrite any existing 
     // config for 'app'
