@@ -62,18 +62,26 @@ This script:
 See `./tools/scripts/f5/backup.ts` for a method to download all firestore data.
 
 ### Roadmap
-* use OAuth2.0 for reddit auth 🔴9️⃣
+* fix mobile OAuth2.0 for reddit auth 🔴9️⃣
+* initialize default nodes on first application start up and do not overwrite on subsequent startups 🔴9️⃣
+* unfurl nodes (react helmet or static rendering on backend for external page loads) 🟡9️⃣
 * tweak UI to be less frustrating 🟡6️⃣
+* duplicating nodes 🟡6️⃣
+* edit node id: duplicate node, update references to old node id to use new node id in other nodes, update old node to be an interstitial page that redirects to the new node 🟡6️⃣
 * left-to-right and top-to-bottom toggles 🟢3️⃣
 * set default top-to-bottom via device media query 🟢3️⃣
 * set default theme coolor via theme pref media query 🟢3️⃣
 * algorithmic selection of available options 🟢6️⃣
 * share options 🟢3️⃣
+* delete node: update node to be "deleted" and show a message indicating this node has been deleted. 🟢0️⃣
+* delete node: if you are the author, you see a message to reinstate it. 🟢0️⃣
+* delete node: if you are not the author, you see a message to request the author reinsate it, if an author for the node exists 🟢0️⃣ 
 * some notification system for when someone has replied to your option that previously had 0 children 0️⃣
 * report 0️⃣
 * music sharing app 0️⃣
 * animate button slider 0️⃣
 * animate new option loading 0️⃣
+
 
 ### Completed Roadmap
 The newest features are at the top of this list.
