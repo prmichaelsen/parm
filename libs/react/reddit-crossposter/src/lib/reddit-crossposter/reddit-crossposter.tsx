@@ -6,7 +6,10 @@ import { useField } from '@parm/react/use-field';
 import { reddit } from '@parm/reddit';
 
 /* eslint-disable-next-line */
-export interface RedditCrossposterProps {}
+export interface RedditCrossposterProps {
+  accessToken: string;
+  refreshToken: string;
+}
 
 const validate = (value: string) => value.trim() !== '';
 
@@ -45,7 +48,7 @@ export const RedditCrossposter = (props: RedditCrossposterProps) => {
     multiline: true,
   });
   const submit = async () => {
-    const snoo = reddit();
+    const snoo = reddit(props);
     const postId = getMatch(submissionUrl);
     const submission = await (snoo.getSubmission(postId) as any);
     if (!submission) {

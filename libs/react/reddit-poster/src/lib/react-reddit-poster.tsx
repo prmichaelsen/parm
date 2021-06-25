@@ -6,7 +6,10 @@ import { reddit } from '@parm/reddit';
 import './react-reddit-poster.scss';
 
 /* eslint-disable-next-line */
-export interface ReactRedditPosterProps {}
+export interface ReactRedditPosterProps {
+  accessToken: string;
+  refreshToken: string;
+}
 
 export const ReactRedditPoster = (props: ReactRedditPosterProps) => {
   const {
@@ -40,7 +43,7 @@ export const ReactRedditPoster = (props: ReactRedditPosterProps) => {
     multiline: true,
   });
   const submit = async () => {
-    const snoo = reddit();
+    const snoo = reddit(props);
     const submission = await (snoo as any).submitLink({
       url: imageUrl,
       subredditName: initialSubreddit,

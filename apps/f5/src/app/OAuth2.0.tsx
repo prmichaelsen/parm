@@ -4,6 +4,7 @@ import { reddit } from '@parm/util';
 import { StringParam, useQueryParams } from 'use-query-params';
 import Axios from 'axios';
 import Button from '@material-ui/core/Button';
+import { RedditTokenManager } from './storage';
 
 export const OAuth20 = () => { 
   const [uuid] = useState(uuidv1());
@@ -34,7 +35,10 @@ export const OAuth20 = () => {
 
   const onCompleteAuthClick = useCallback(async () => {
     const encode = window.btoa(`${reddit.clientId}:${reddit.clientSecret}`);
-    const token = await Axios.post(
+    const response = await Axios.post<{
+      access_token: string;
+      refresh_token: string;
+    }>(
       'https://www.reddit.com/api/v1/access_token', 
       {
         grant_type: 'authorization_code',
@@ -47,7 +51,12 @@ export const OAuth20 = () => {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
       });
+      const token = { 
+        accessToken: response.data.access_token,
+        refreshToken: response.data.refresh_token,
+      }
       setToken(token);
+      RedditTokenManager().set(token);
   }, [code]);
 
   return (

@@ -1,7 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "types": ["es6", "dom", "jest"]
+    "types": ["es6", "jest"]
   },
   "include": ["**/*.ts"]
 }

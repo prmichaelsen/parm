@@ -1,5 +1,11 @@
 import Snoowrap, { Submission, Subreddit } from 'snoowrap';
 import { reddit } from './reddit';
+import { reddit as redditSecrets } from '@parm/util';
+
+const config = {
+  refreshToken: redditSecrets.refreshToken,
+  accessToken: null,
+}
 
 describe('reddit', () => {
   var originalTimeout;
@@ -12,26 +18,26 @@ describe('reddit', () => {
   afterEach(function() {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
   });
-  it.skip('should work', async () => {
-    expect(await (await reddit().getDefaultSubreddits()).length).toBeGreaterThan(0);
+  it('should work', async () => {
+    expect(await (await reddit(config).getDefaultSubreddits()).length).toBeGreaterThan(0);
   });
   it('should fetch subreddit', async () => {
-    const snoo = reddit();
-    const wholesome: Subreddit = await (snoo.getSubreddit('WholesomeAsHeck') as any);
+    const snoo = reddit(config);
+    const wholesome: Subreddit = await (snoo.getSubreddit('test') as any);
     expect(wholesome).not.toBeNull();
   });
-  it.skip('should submit', async () => {
-    const snoo = reddit();
+  it('should submit', async () => {
+    const snoo = reddit(config);
     const submission: Submission = await (snoo.submitSelfpost({
-      subredditName: 'WholesomeAsHeck',
+      subredditName: 'test',
       title: 'test',
       text: 'test',
     }) as any);
     expect(submission).not.toBeNull();
   });
-  it.skip('should submit image', async () => {
-    const snoo = reddit();
-    const wholesome: Subreddit = await (snoo.getSubreddit('WholesomeAsHeck') as any);
+  it('should submit image', async () => {
+    const snoo = reddit(config);
+    const wholesome: Subreddit = await (snoo.getSubreddit('test') as any);
     const submission: Submission = await (wholesome.submitLink({
       title: 'test 2',
       url: 'https://firebasestorage.googleapis.com/v0/b/parm-names-not-numbers.appspot.com/o/parm%2Fimages%2Feda049f0-b4fa-11ea-9ad9-af5c0f14df36?alt=media&token=a3d668ec-33d8-45fc-bdf5-8ed387c60c23',
@@ -39,24 +45,22 @@ describe('reddit', () => {
     expect(submission).not.toBeNull();
   });
   it('should get submission', async () => {
-    const snoo = reddit();
+    const snoo = reddit(config);
     const submission: Submission = await (snoo.getSubmission('jnecb9') as any);
     expect(submission).not.toBeNull();
   });
-  it.skip('should crosspost submission', async () => {
-    const snoo = reddit();
+  it('should crosspost submission', async () => {
+    const snoo = reddit(config);
     const submission: Submission = await (snoo.getSubmission('jnecb9') as any);
-    console.log(submission);
     const crosspostResult = await (submission as any).submitCrosspost({
-      subredditName: 'cute',
+      subredditName: 'sandboxtest',
       title: 'test',
     });
     expect(crosspostResult).not.toBeNull();
   });
   it('should pull oauth scopes', async (done) => {
-    const snoo = reddit();
+    const snoo = reddit(config);
     const scopes = await (snoo.getOauthScopeList());
-    console.log(scopes);
     expect(scopes).not.toBeNull();
     done();
   });

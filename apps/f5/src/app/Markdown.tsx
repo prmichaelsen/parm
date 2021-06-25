@@ -23,6 +23,7 @@ import { RedditCrossposter } from '@parm/react/reddit-crossposter';
 import { ReactRedditPoster } from '@parm/react/reddit-poster';
 import UserId from './UserId';
 import { Img } from './Img';
+import { RedditTokenManager } from './storage';
 
 export const Markdown = ({ children }) => {
   const { isDark } = useThemePrefs();
@@ -66,8 +67,42 @@ export const Markdown = ({ children }) => {
         ImgViewer,
         ListItem,
         DateSubtracter,
-        RedditCrossposter,
-        ReactRedditPoster,
+        RedditCrossposter: p => {
+          const {
+            accessToken, refreshToken
+          } = RedditTokenManager.get();
+          if (accessToken || !refreshToken) {
+            return (
+              <div>
+                To use the RedditCrossposter, you must 
+                first authorize parm to work with Reddit.
+                <br/>
+                <a href="/?focus=H0ua4f7Ue8Mv2zjxtO4S">
+                  Click here to get started
+                </a>
+              </div>
+            );
+          }
+          return <RedditCrossposter {...{ ...p, accessToken, refreshToken }} />
+        },
+        ReactRedditPoster: p => {
+          const {
+            accessToken, refreshToken
+          } = RedditTokenManager.get();
+          if (accessToken || !refreshToken) {
+            return (
+              <div>
+                To use the ReactRedditPoster, you must 
+                first authorize parm to work with Reddit.
+                <br/>
+                <a href="/?focus=H0ua4f7Ue8Mv2zjxtO4S">
+                  Click here to get started
+                </a>
+              </div>
+            );
+          }
+          return <ReactRedditPoster {...{ ...p, accessToken, refreshToken }} />
+        },
         UserId,
         YoutubeEmbed,
         OAuth20,
