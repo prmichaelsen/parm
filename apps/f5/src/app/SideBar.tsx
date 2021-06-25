@@ -32,7 +32,7 @@ export default function SideBar() {
   // by creating a node with ListItems
   // in it. It is stored in the database
   // and retrieved on page load.
-  const customNavItemsId = 'PQPfl5ioaUFsRpSywO8M';
+  const customNavItemsId = 'navigation';
   const customNavItems = state.nodes.find(n => n.id === customNavItemsId);
   const MyList = () => (
     <span role="presentation">

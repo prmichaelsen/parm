@@ -30,8 +30,9 @@ console.log({
 import { useState, useEffect, useCallback } from 'react';
 import { storage } from './storage';
 import uuidv1 from 'uuid/v1';
-import { StringParam, useQueryParams } from 'use-query-params';
 import { getImageUrl } from './utils';
+import defaultNodes from './defaultNodes';
+import { StringParam, useQueryParams } from 'use-query-params';
 
 export interface RoleDocument {
   roles: string[];
@@ -45,6 +46,7 @@ export interface Option {
   type: 'prompt' | 'action';
   creatorId: string;
   createTime: firebase.firestore.Timestamp;
+  isRoot?: boolean;
 }
 
 interface State {
@@ -61,16 +63,81 @@ const initialState: State = {
   current: null,
 }; 
 
+interface NodeBaseProps {
+  text: string,
+  parent: string,
+  type: 'prompt' | 'action',
+}
+
+export type NodeCreateProps = NodeBaseProps & Partial<Option>;
+
+async function createNode(
+  node: NodeCreateProps,
+  nodes: Option[] = [],
+  prev: Option[] = [],
+) {
+  const { text, type, parent } = node;
+  let { creatorId } = node;
+  const createTime = firebase.firestore.Timestamp.fromDate(new Date());
+  const isRoot = nodes.length === 0 && prev.length === 0;
+  if (creatorId === undefined) {
+    creatorId = isRoot ? 'admin' : storage.userId();
+  }
+  const optionRef = await db.collection(Node).add({
+    creatorId,
+    createTime,
+    text,
+    children: [],
+    parent,
+    type,
+    isRoot,
+  });
+  const option: Option = {
+    creatorId: storage.userId(),
+    createTime,
+    text,
+    children: [],
+    parent,
+    type,
+    id: optionRef.id,
+  };
+  let parentNode = nodes.find(n => n.id === parent);
+  if (parentNode) {
+    parentNode.children.push(option.id);
+    await db.collection(Node).doc(parentNode.id).update(parentNode);
+  }
+  const root = nodes.find(n => n.isRoot);
+  return {
+    root,
+    nodes: [...nodes, option],
+    current: option.id,
+    prev: [...prev, option],
+    option,
+  }
+}
+
 const fetch = async () => {
   const e = await db.collection(Node).get();
-  const nodes: any[] = e.docs.map(d => ({
+  const nodes: Option[] = e.docs.map(d => ({
     id: d.id,
     ...d.data(),
     // firebase encodes \n as \\n
     text: d.data().text
       .replace(/\\\n/g, '\n')
       .replace(/\\\t/g, '\t')
-  }));
+  })) as any;
+  let dNodes = defaultNodes;
+  const existingDefaultNodes = nodes
+    .filter(n => defaultNodes.some(d => d.id === n.id))
+    .map(n => n.id);
+  const promises = defaultNodes
+    .filter(n => !existingDefaultNodes.some(id => id === n.id))
+    .map(n => new Promise(async (res, rej) => {
+      await createNode(n, nodes);
+      nodes.push(n);
+      res(null);
+    }));
+  await Promise.all(promises);
   return {
     nodes,
     root: nodes.find(n => n.isRoot),
@@ -192,6 +259,9 @@ export function useMeta(nodeId: string) {
 }
 
 export function useData() {
+  const [_, setQuery] = useQueryParams({
+    focus: StringParam,
+  });
   const [state, setState] = useState({...initialState});
   const [guid, setGuid] = useState(uuidv1());
   const setCurrent = (current: string) => {
@@ -214,36 +284,22 @@ export function useData() {
         nodes,
     });
   };
-  async function createOption({ text, parent, type }: { text: string, parent: string, type: 'prompt' | 'action' }) {
-    const creatorId = storage.userId();
-    const createTime = firebase.firestore.Timestamp.fromDate(new Date());
-    const optionRef = await db.collection(Node).add({
-      creatorId,
-      createTime,
-      text,
-      children: [],
-      parent,
-      type,
-    });
-    const option: Option = {
-      creatorId: storage.userId(),
-      createTime,
-      text,
-      children: [],
-      parent,
-      type,
-      id: optionRef.id,
-    };
-    let parentNode = state.nodes.find(n => n.id === parent);
-    parentNode.children.push(option.id);
-    await db.collection(Node).doc(parentNode.id).update(parentNode);
-    const { nodes, root } = await fetch();
-    parentNode = nodes.find(n => n.id === parent);
+  async function createOption({ text, parent, type }: NodeCreateProps) {
+    const {
+      root, nodes, option
+    } = await createNode(
+      { text, parent, type },
+      state.nodes,
+      state.prev
+    );
     setState({
         root,
         nodes,
         current: option.id,
         prev: [...state.prev, option],
+    });
+    setQuery({
+      focus: option.id,
     });
   }
   useEffect(() => {
