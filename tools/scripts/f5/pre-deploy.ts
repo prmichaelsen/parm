@@ -7,7 +7,7 @@ export const preDeploy = async (appNames = []) => {
     .filter(app => appNames.some(name => app.app === name))
     .map(app => new Promise(r => {
       // firebase target:apply hosting stacktrace
-      console.log(app);
+      console.log(`pre-deploying ${app.app}...`);
       run('firebase', [
         'target:apply',
         'hosting',

@@ -71,7 +71,7 @@ export const Markdown = ({ children }) => {
           const {
             accessToken, refreshToken
           } = RedditTokenManager.get();
-          if (accessToken || !refreshToken) {
+          if (!accessToken || !refreshToken) {
             return (
               <div>
                 To use the RedditCrossposter, you must 
@@ -89,7 +89,7 @@ export const Markdown = ({ children }) => {
           const {
             accessToken, refreshToken
           } = RedditTokenManager.get();
-          if (accessToken || !refreshToken) {
+          if (!accessToken || !refreshToken) {
             return (
               <div>
                 To use the ReactRedditPoster, you must 

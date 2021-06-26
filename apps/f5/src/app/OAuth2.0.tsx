@@ -34,21 +34,24 @@ export const OAuth20 = () => {
   const link = `${baseUrl}${parts.join('&')}`;
 
   const onCompleteAuthClick = useCallback(async () => {
+    let id = reddit.clientId; 
+    let secret = reddit.clientSecret;
     const encode = window.btoa(`${reddit.clientId}:${reddit.clientSecret}`);
     const response = await Axios.post<{
       access_token: string;
       refresh_token: string;
     }>(
       'https://www.reddit.com/api/v1/access_token', 
-      {
-        grant_type: 'authorization_code',
-        code,
-        redirectUri,
-      },
+      null,
       {
         headers: {
           "Authorization": `Basic ${encode}`,
           'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        params: {
+          grant_type: 'authorization_code',
+          code,
+          redirect_uri: redirectUri,
         }
       });
       const token = { 
@@ -59,8 +62,12 @@ export const OAuth20 = () => {
       RedditTokenManager.set(token);
   }, [code]);
 
+  const { refreshToken, accessToken } = RedditTokenManager.get();
+  const hasToken = refreshToken !== undefined
+    && accessToken !== undefined;
+
   return (
-    token && (
+    hasToken && (
       <div>
         Congratulations! You have successfully authorized parm with reddit.
       </div>
