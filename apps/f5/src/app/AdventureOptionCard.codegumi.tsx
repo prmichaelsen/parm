@@ -1,1 +1,1 @@
-import './AdventureOptionCard.parm';
+export { AdventureOptionCard } from './AdventureOptionCard.parm';

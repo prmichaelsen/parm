@@ -76,14 +76,14 @@ async function createNode(
   nodes: Option[] = [],
   prev: Option[] = [],
 ) {
-  const { text, type, parent } = node;
+  const { text, type, parent, id } = node;
   let { creatorId } = node;
   const createTime = firebase.firestore.Timestamp.fromDate(new Date());
   const isRoot = nodes.length === 0 && prev.length === 0;
   if (creatorId === undefined) {
     creatorId = isRoot ? 'admin' : storage.userId();
   }
-  const optionRef = await db.collection(Node).add({
+  const optionDto = {
     creatorId,
     createTime,
     text,
@@ -91,16 +91,18 @@ async function createNode(
     parent,
     type,
     isRoot,
-  });
-  const option: Option = {
-    creatorId: storage.userId(),
-    createTime,
-    text,
-    children: [],
-    parent,
-    type,
-    id: optionRef.id,
   };
+  let option: Option;
+  if (id) {
+    await db.collection(Node).doc(id).set(optionDto);
+    const optionSnapshot = await db.collection(Node).doc(id).get();
+    option = optionSnapshot.data() as any;
+  } else {
+    const optionRef = await db.collection(Node).add(optionDto);
+    const optionSnapshot = await optionRef.get();
+    option = optionSnapshot.data() as any;
+    option.id = optionRef.id;
+  }
   let parentNode = nodes.find(n => n.id === parent);
   if (parentNode) {
     parentNode.children.push(option.id);

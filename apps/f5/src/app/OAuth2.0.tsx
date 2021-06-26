@@ -67,7 +67,13 @@ export const OAuth20 = () => {
     && accessToken !== undefined;
 
   return (
-    hasToken && (
+    <>
+    <div>
+      {`token: ${accessToken}`}
+      {`refresh: ${refreshToken}`}
+
+    </div>
+    {hasToken && (
       <div>
         Congratulations! You have successfully authorized parm with reddit.
       </div>
@@ -84,7 +90,8 @@ export const OAuth20 = () => {
           Authorize Reddit
         </Button>
       </div>
-    )
+    )}
+    </>
   );
 }
 

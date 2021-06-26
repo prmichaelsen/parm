@@ -875,6 +875,10 @@
                 {
                   "replace": "apps/f5/src/app/AdventureOptionCard.tsx",
                   "with": "apps/f5/src/app/AdventureOptionCard.codegumi.tsx"
+                },
+                {
+                  "replace": "apps/f5/src/app/EndMessage.tsx",
+                  "with": "apps/f5/src/app/EndMessage.codegumi.tsx"
                 }
               ]
             }
@@ -974,6 +978,10 @@
                 {
                   "replace": "apps/f5/src/app/AdventureOptionCard.tsx",
                   "with": "apps/f5/src/app/AdventureOptionCard.codegumi.tsx"
+                },
+                {
+                  "replace": "apps/f5/src/app/EndMessage.tsx",
+                  "with": "apps/f5/src/app/EndMessage.codegumi.tsx"
                 }
               ]
             }
