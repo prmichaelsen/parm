@@ -63,16 +63,11 @@ export const OAuth20 = () => {
   }, [code]);
 
   const { refreshToken, accessToken } = RedditTokenManager.get();
-  const hasToken = refreshToken !== undefined
-    && accessToken !== undefined;
+  const hasToken = token && token.refreshToken !== undefined
+    && token.accessToken !== undefined;
 
   return (
     <>
-    <div>
-      {`token: ${accessToken}`}
-      {`refresh: ${refreshToken}`}
-
-    </div>
     {hasToken && (
       <div>
         Congratulations! You have successfully authorized parm with reddit.
