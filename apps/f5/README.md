@@ -62,14 +62,15 @@ This script:
 See `./tools/scripts/f5/backup.ts` for a method to download all firestore data.
 
 ### Roadmap
-* fix mobile OAuth2.0 for reddit auth 🔴9️⃣
 * loading button 🔴9️⃣
-* initialize default nodes on first application start up and do not overwrite on subsequent startups 🔴9️⃣
+* node aliases 🔴9️⃣
+* node repository / browser for discovering and easily adding common nodes 🟡9️⃣
 * unfurl nodes (react helmet or static rendering on backend for external page loads) 🟡9️⃣
 * tweak UI to be less frustrating 🟡6️⃣
 * duplicating nodes 🟡6️⃣
 * edit node id: duplicate node, update references to old node id to use new node id in other nodes, update old node to be an interstitial page that redirects to the new node 🟡6️⃣
 * slide show cards (group cards in a specific order and allow swiping left to right to navigate them) 🟡3️⃣
+* spa nav for node links 🟢9️⃣
 * left-to-right and top-to-bottom toggles 🟢3️⃣
 * set default top-to-bottom via device media query 🟢3️⃣
 * set default theme coolor via theme pref media query 🟢3️⃣
@@ -88,7 +89,6 @@ See `./tools/scripts/f5/backup.ts` for a method to download all firestore data.
 * music sharing app 0️⃣
 * animate button slider 0️⃣
 * animate new option loading 0️⃣
-
 
 ### Completed Roadmap
 The newest features are at the top of this list.
