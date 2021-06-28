@@ -18,7 +18,7 @@ import { storage } from './storage';
 import { useStyles } from './useStyles';
 import { useThemePrefs } from './hooks';
 import { useData } from './firebase';
-import Markdown from 'markdown-to-jsx';
+import { Markdown } from './Markdown';
 
 
 export default function SideBar() {
