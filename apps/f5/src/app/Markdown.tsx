@@ -13,6 +13,7 @@ import { useThemePrefs } from './hooks';
 import { useStyles } from './useStyles';
 import { YoutubeLinkConverter } from './YoutubeLinkConverter';
 import { ImgUploader } from './ImageUploader';
+import { ImgUploaderPlus } from './ImageUploaderPlus';
 import { ImgViewer } from './ImageViewer';
 import { YoutubeEmbed } from './YoutubeEmbed';
 import { OAuth20 } from './OAuth2.0';
@@ -74,6 +75,7 @@ export const Markdown = ({ children }) => {
         OAuth20,
         CardList,
         CardDeck,
+        ImgUploaderPlus,
       },
     }}>
       {children}
