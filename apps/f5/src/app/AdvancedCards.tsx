@@ -1,7 +1,7 @@
 import React from 'react';
-import { cardDeck } from './CardDeck';
+import { cardList } from './CardList';
 import { Markdown } from './Markdown';
 
-cardDeck.Card = ({ children }) => <Markdown>{children}</Markdown>;
+cardList.Card = ({ children }) => <Markdown>{children}</Markdown>;
 
-export const { CardDeck } = cardDeck;
+export const { CardList } = cardList;

@@ -2,14 +2,14 @@ import React from 'react'
 import { useData } from './firebase';
 
 
-interface CardDeckProps {
+interface CardListProps {
   /**
    * comma delimited list of ids
    */
   ids: string;
 }
 
-interface CardList {
+interface cardList {
   CardList: any,
   Card: null | React.Component,
 }
@@ -18,7 +18,7 @@ export const cardList = {
   Card: null,
   CardList: function ({
     ids
-  }: CardDeckProps) {
+  }: CardListProps) {
     const {
       state, updateNode,
       setCurrent,
