@@ -23,7 +23,7 @@ import { RedditCrossposter } from './RedditCrossposter';
 import { ReactRedditPoster } from './ReactRedditPoster';
 import UserId from './UserId';
 import { Img } from './Img';
-import { CardList } from './AdvancedCards';
+import { CardList, CardDeck } from './AdvancedCards';
 
 export const Markdown = ({ children }) => {
   const { isDark } = useThemePrefs();
@@ -73,6 +73,7 @@ export const Markdown = ({ children }) => {
         YoutubeEmbed,
         OAuth20,
         CardList,
+        CardDeck,
       },
     }}>
       {children}

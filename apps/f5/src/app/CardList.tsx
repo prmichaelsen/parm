@@ -19,10 +19,7 @@ export const cardList = {
   CardList: function ({
     ids
   }: CardListProps) {
-    const {
-      state, updateNode,
-      setCurrent,
-    } = useData();
+    const { state } = useData();
     const { Card } = cardList;
     return (
       <div>
