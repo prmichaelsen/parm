@@ -54,6 +54,7 @@ interface State {
   prev: Option[],
   root: Option,
   current: string,
+  stateId: string,
 }
 
 const initialState: State = {
@@ -61,6 +62,7 @@ const initialState: State = {
   prev: [],
   root: null,
   current: null,
+  stateId: uuidv1(),
 }; 
 
 interface NodeBaseProps {
@@ -260,12 +262,18 @@ export function useMeta(nodeId: string) {
   };
 }
 
+const globalState = {
+  state: { ...initialState },
+}
 export function useData() {
   const [_, setQuery] = useQueryParams({
     focus: StringParam,
   });
-  const [state, setState] = useState({...initialState});
-  const [guid, setGuid] = useState(uuidv1());
+  const [state, updateState] = useState(globalState.state);
+  const setState = (state: State) => {
+    globalState.state = {...state};
+    updateState(state);
+  };
   const setCurrent = (current: string) => {
     setState({
         ...state,
@@ -284,6 +292,7 @@ export function useData() {
         ...state,
         root,
         nodes,
+        stateId: uuidv1(),
     });
   };
   async function createOption({ text, parent, type }: NodeCreateProps) {
@@ -299,6 +308,7 @@ export function useData() {
         nodes,
         current: option.id,
         prev: [...state.prev, option],
+        stateId: uuidv1(),
     });
     setQuery({
       focus: option.id,
@@ -310,7 +320,7 @@ export function useData() {
         nodes,
         root,
       }));
-  }, [guid]);
+  }, [state.stateId]);
   return {
     state,
     setCurrent,

@@ -6,10 +6,8 @@ import { useStyles } from './useStyles';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useData } from './firebase';
 import { EndMessage } from './EndMessage';
-import { AdventureOptionCard } from './AdventureOptionCard';
 import { Option } from './firebase';
 import { useQueryParams, StringParam } from 'use-query-params'; 
-import Markdown from 'markdown-to-jsx';
 import SideBar from './SideBar';
 import { useFilter } from '@parm/react/filter-control';
 import CardContent from '@material-ui/core/CardContent';
@@ -17,6 +15,9 @@ import { storage } from './storage';
 import Switch from '@material-ui/core/Switch';
 import Grid from '@material-ui/core/Grid';
 import { useSortState } from './hooks';
+import Markdown from 'markdown-to-jsx';
+import { AdventureOptionCard } from './AdventureOptionCard';
+
 
 const compareByTime = (a: Option, b: Option) => {
   const result = +a.createTime.toDate() - +b.createTime.toDate();
