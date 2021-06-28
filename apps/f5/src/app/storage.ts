@@ -43,7 +43,7 @@ const sort = (): boolean => {
   const key = 'f5-sort';
   const value = localStorage.getItem(key);
   if (!value) {
-    const initial = 'true';
+    const initial = 'false';
     localStorage.setItem(key, initial);
   }
   return value === 'true';
