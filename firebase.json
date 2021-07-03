@@ -119,6 +119,21 @@
           "destination": "/index.html"
         }
       ]
+    },
+    {
+      "target": "hexd",
+      "public": "dist/apps/hexd",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
     }
   ]
 }

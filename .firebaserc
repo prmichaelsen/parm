@@ -22,6 +22,12 @@
         ],
         "storybook/react": [
           "parm-storybook-react"
+        ],
+        "codegumi": [
+          "codegumi"
+        ],
+        "hexd": [
+          "bewitchd"
         ]
       }
     }

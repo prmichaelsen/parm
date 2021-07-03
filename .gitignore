@@ -44,3 +44,13 @@ apps/greenroom-rest-api/src/environments/environment.ts
 
 .firebase/*
 .firebase
+.expo*
+npm-debug.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+apps/f5/expo/node_modules
