@@ -24,8 +24,8 @@ const main = async () => {
   const allApps = (await fetch.apps()).map(conf => conf.app);
   const apps = 
     allApps.filter(app => appNamesArr.some(m => m === app));
-  if (allApps.length === 0) {
-    console.log(`not a valid application ${appNames}`);
+  if (apps.length === 0) {
+    console.log(`not a valid application '${appNames}'`);
     return;
   }
   await preBundle(apps);
