@@ -8,20 +8,26 @@ import { fetch } from './apps';
 
 const help = 
 `
-Deploy all applications. Provide comma delimited app names
-to deploy specific applications only.
+Provide comma delimited app names
+to deploy specific applications.
 `
 const argPositionsByName = {
   2: 'appNames',
 }
 const [ 
-  appNames = []
+  appNames,
 ] = Object.keys(argPositionsByName)
   .map(key => process.argv[key]);
 
 const main = async () => {
-  const apps = appNames.length === 0 ? 
-    (await fetch.apps()).map(app => app.app) : appNames.split(',');
+  const appNamesArr = (appNames + '').split(',');
+  const allApps = (await fetch.apps()).map(conf => conf.app);
+  const apps = 
+    allApps.filter(app => appNamesArr.some(m => m === app));
+  if (allApps.length === 0) {
+    console.log(`not a valid application ${appNames}`);
+    return;
+  }
   await preBundle(apps);
   await bundle(apps);
   await postBundle(apps);
