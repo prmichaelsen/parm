@@ -897,6 +897,18 @@
                 {
                   "replace": "apps/f5/src/environments/environment.ts",
                   "with": "./apps/f5/src/environments/supreme.ts"
+                },
+                {
+                  "replace": "apps/f5/src/app/Adventure.tsx",
+                  "with": "apps/f5/src/app/Adventure.supreme.tsx"
+                },
+                {
+                  "replace": "apps/f5/src/app/AdventureOptionCard.tsx",
+                  "with": "apps/f5/src/app/AdventureOptionCard.supreme.tsx"
+                },
+                {
+                  "replace": "apps/f5/src/app/EndMessage.tsx",
+                  "with": "apps/f5/src/app/EndMessage.supreme.tsx"
                 }
               ]
             }
@@ -1018,6 +1030,18 @@
                 {
                   "replace": "apps/f5/src/environments/environment.ts",
                   "with": "./apps/f5/src/environments/supreme.ts"
+                },
+                {
+                  "replace": "apps/f5/src/app/Adventure.tsx",
+                  "with": "apps/f5/src/app/Adventure.supreme.tsx"
+                },
+                {
+                  "replace": "apps/f5/src/app/AdventureOptionCard.tsx",
+                  "with": "apps/f5/src/app/AdventureOptionCard.supreme.tsx"
+                },
+                {
+                  "replace": "apps/f5/src/app/EndMessage.tsx",
+                  "with": "apps/f5/src/app/EndMessage.supreme.tsx"
                 }
               ]
             }

@@ -134,6 +134,21 @@
           "destination": "/index.html"
         }
       ]
+    },
+    {
+      "target": "supreme",
+      "public": "dist/apps/supreme",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
     }
   ]
 }
