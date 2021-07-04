@@ -96,8 +96,9 @@ async function createNode(
     parent,
     type,
     isRoot,
-    data,
   };
+  if (data) 
+    (optionDto as any).data = data;
   let option: Option;
   if (id) {
     await db.collection(Node).doc(id).set(optionDto);
