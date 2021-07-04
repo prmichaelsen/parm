@@ -35,6 +35,9 @@
       "hosting": {
         "parm": [
           "parm-parm"
+        ],
+        "codegumi": [
+          "codegumi"
         ]
       }
     }
