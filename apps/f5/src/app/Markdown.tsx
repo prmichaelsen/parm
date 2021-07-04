@@ -25,6 +25,7 @@ import { ReactRedditPoster } from './ReactRedditPoster';
 import UserId from './UserId';
 import { Img } from './Img';
 import { CardList, CardDeck } from './AdvancedCards';
+import { GoogleMe } from './GoogleMe';
 
 export const Markdown = ({ children }) => {
   const { isDark } = useThemePrefs();
@@ -76,6 +77,7 @@ export const Markdown = ({ children }) => {
         CardList,
         CardDeck,
         ImgUploaderPlus,
+        GoogleMe,
       },
     }}>
       {children}
