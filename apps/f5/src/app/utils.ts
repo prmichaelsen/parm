@@ -17,30 +17,40 @@ const bucketName = `${firebaseProjectId}.appspot.com`;
  *    console.log(makeMeKing({ name: 'Bryan', country: 'Scotland'}));
  *    // Logs 'Bryan is now the king of Scotland!'
  */
- export const generateTemplateString = (function(){
+export const generateTemplateString = (function () {
   var cache = {};
 
-  function generateTemplate(template){
-      var fn = cache[template];
+  function generateTemplate(template) {
+    var fn = cache[template];
 
-      if (!fn){
-          // Replace ${expressions} (etc) with ${map.expressions}.
+    if (!fn) {
+      // Replace ${expressions} (etc) with ${map.expressions}.
 
-          var sanitized = template
-              .replace(/\$\{([\s]*[^;\s\{]+[\s]*)\}/g, function(_, match){
-                  return `\$\{map.${match.trim()}\}`;
-                  })
-              // Afterwards, replace anything that's not ${map.expressions}' (etc) with a blank string.
-              .replace(/(\$\{(?!map\.)[^}]+\})/g, '');
+      var sanitized = template
+        .replace(/\$\{([\s]*[^;\s\{]+[\s]*)\}/g, function (_, match) {
+          return `\$\{map.${match.trim()}\}`;
+        })
+        // Afterwards, replace anything that's not ${map.expressions}' (etc) with a blank string.
+        .replace(/(\$\{(?!map\.)[^}]+\})/g, '');
 
-          fn = Function('map', `return \`${sanitized}\``);
-      }
+      fn = Function('map', `return \`${sanitized}\``);
+    }
 
-      return fn;
+    return fn;
   }
 
   return generateTemplate;
 })();
 
-export const getImageUrl: ({filename: string}) => string = 
+export const getImageUrl: ({ filename: string }) => string =
   generateTemplateString(`https://storage.googleapis.com/${bucketName}/${ImagesStore}/\${filename}`);
+
+/**
+ * TODO: cloud logging
+ */
+export const log = {
+  debug: (msg) => console.log(msg),
+  info: (msg) => console.log(msg),
+  warn: (msg) => console.log(msg),
+  error: (msg) => console.log(msg),
+}

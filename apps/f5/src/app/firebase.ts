@@ -30,7 +30,7 @@ console.log({
 import { useState, useEffect, useCallback } from 'react';
 import { storage } from './storage';
 import uuidv1 from 'uuid/v1';
-import { getImageUrl } from './utils';
+import { getImageUrl, log } from './utils';
 import defaultNodes from './defaultNodes';
 import { StringParam, useQueryParams } from 'use-query-params';
 
@@ -43,10 +43,11 @@ export interface Option {
   children: string[];
   text: string;
   id: string;
-  type: 'prompt' | 'action';
+  type: 'prompt' | 'action' | 'redirect';
   creatorId: string;
   createTime: firebase.firestore.Timestamp;
   isRoot?: boolean;
+  data?: {[key: string]: any }
 }
 
 interface State {
@@ -68,7 +69,7 @@ const initialState: State = {
 interface NodeBaseProps {
   text: string,
   parent: string,
-  type: 'prompt' | 'action',
+  type: 'prompt' | 'action' | 'redirect',
 }
 
 export type NodeCreateProps = NodeBaseProps & Partial<Option>;
@@ -78,7 +79,9 @@ async function createNode(
   nodes: Option[] = [],
   prev: Option[] = [],
 ) {
-  const { text, type, parent, id } = node;
+  const {
+    text, type, parent, id, data
+  } = node;
   let { creatorId } = node;
   const createTime = firebase.firestore.Timestamp.fromDate(new Date());
   const isRoot = nodes.length === 0 && prev.length === 0;
@@ -93,6 +96,7 @@ async function createNode(
     parent,
     type,
     isRoot,
+    data,
   };
   let option: Option;
   if (id) {
@@ -120,6 +124,35 @@ async function createNode(
   }
 }
 
+const mapNodes = (baseNodes: Option[]) => {
+  return baseNodes.map(n => {
+    switch (n.type) {
+      case 'redirect': {
+          const aliased = baseNodes.find(f => {
+            if (!n.data) {
+              log.error(`alias node '${n.id}' has no data.target`);
+              return false;
+            } 
+            return f.id === n.data.target;
+          });
+          if (!aliased) {
+            log.error(`alias target '${n.id}' does not exist`);
+            n = {...n, text: `404: Node aliased by '${n.id}' does not exist.`};
+          } else {
+            const {
+              id, createTime, data
+            } = n;
+            n = { 
+              ...aliased,
+              id, createTime, data
+            };
+          }
+        }
+    }
+    return n;
+  });
+}
+
 const fetch = async () => {
   const e = await db.collection(Node).get();
   const nodes: Option[] = e.docs.map(d => ({
@@ -130,7 +163,6 @@ const fetch = async () => {
       .replace(/\\\n/g, '\n')
       .replace(/\\\t/g, '\t')
   })) as any;
-  let dNodes = defaultNodes;
   const existingDefaultNodes = nodes
     .filter(n => defaultNodes.some(d => d.id === n.id))
     .map(n => n.id);
@@ -143,7 +175,7 @@ const fetch = async () => {
     }));
   await Promise.all(promises);
   return {
-    nodes,
+    nodes: mapNodes(nodes),
     root: nodes.find(n => n.isRoot),
   }
 }
@@ -295,11 +327,13 @@ export function useData() {
         stateId: uuidv1(),
     });
   };
-  async function createOption({ text, parent, type }: NodeCreateProps) {
+  async function createOption({ 
+    text, parent, type, data, id 
+  }: NodeCreateProps) {
     const {
-      root, nodes, option
+      root, nodes, option,
     } = await createNode(
-      { text, parent, type },
+      { id, text, parent, type, data},
       state.nodes,
       state.prev
     );
@@ -315,11 +349,14 @@ export function useData() {
     });
   }
   useEffect(() => {
-    fetch().then(({nodes, root}) => setState({
+    fetch().then(({nodes, root}) => setState((() => {
+      const s = {
         ...state,
-        nodes,
+        nodes: mapNodes(nodes),
         root,
-      }));
+      }
+      return s;
+      })()));
   }, [state.stateId]);
   return {
     state,

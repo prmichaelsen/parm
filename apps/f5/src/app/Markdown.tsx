@@ -26,6 +26,7 @@ import UserId from './UserId';
 import { Img } from './Img';
 import { CardList, CardDeck } from './AdvancedCards';
 import { GoogleMe } from './GoogleMe';
+import { Alias } from './Alias';
 
 export const Markdown = ({ children }) => {
   const { isDark } = useThemePrefs();
@@ -78,6 +79,7 @@ export const Markdown = ({ children }) => {
         CardDeck,
         ImgUploaderPlus,
         GoogleMe,
+        Alias,
       },
     }}>
       {children}
