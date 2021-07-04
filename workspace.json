@@ -1541,6 +1541,73 @@
           }
         }
       }
+    },
+    "function-google-me": {
+      "root": "apps/function-google-me",
+      "sourceRoot": "apps/function-google-me/src",
+      "projectType": "application",
+      "prefix": "function-google-me",
+      "schematics": {},
+      "architect": {
+        "serve": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              {
+                "command": "npx @google-cloud/functions-framework --target functionGoogleMe --source ./dist/apps/function-google-me"
+              }
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "apps/function-google-me/tsconfig.app.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/function-google-me/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/function-google-me/jest.config.js",
+            "tsConfig": "apps/function-google-me/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@joelcode/gcp-function:build",
+          "options": {
+            "outputPath": "dist/apps/function-google-me",
+            "main": "apps/function-google-me/src/index.ts",
+            "yamlConfig": "apps/function-google-me/src/environments/.production.yaml",
+            "tsConfig": "apps/function-google-me/tsconfig.app.json",
+            "packageJson": "apps/function-google-me/package.json"
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false
+            }
+          }
+        },
+        "deploy": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              {
+                "command": "gcloud functions deploy functionGoogleMe --trigger-http --runtime nodejs10 --region us-central1 --env-vars-file ./dist/apps/function-google-me/.production.yaml --source ./dist/apps/function-google-me --max-instances 10 --allow-unauthenticated"
+              }
+            ]
+          }
+        }
+      }
     }
   },
   "cli": {
