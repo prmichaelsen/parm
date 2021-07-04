@@ -2,6 +2,7 @@
 const path = require('path');
 import firebase from 'firebase-admin';
 import { exit } from 'process';
+import { adminDb, environment } from './util';
 const nunjucks = require('nunjucks');
 
 nunjucks.configure({
@@ -18,7 +19,7 @@ const resolvePath = (pth: string) => {
 const help = `Required args:
   appName - If this is a firebase-admin-sdk secret, then the app name is the
     name of project as defined in firebase cloud console, e.g. 'parm-names-not-numbers' or 'parm-app'.
-    If this is any other secret, then appName is a field in the collection 'prod.f5.apps', 
+    If this is any other secret, then appName is a field in the collection 'prod.parm.f5.apps', 
     e.g. 'parm', 'one-word-story', or 'default';
   secretType - the type of secret, e.g. firebase, firebase-admin-sdk, reddit
   secretsJsonPath - the path to the actual secrets .json file you are pushing
@@ -52,18 +53,8 @@ const [
   .map(key => process.argv[key]);
 
 const main = async () => { 
-  const env = process.env.NODE_ENV || 'production';
-  const config = {
-    firebaseSecretsPath: './env/parm-app.json',
-    firebaseDatabaseUrl: 'https://parm-app.firebaseio.com',
-  }
-
-  let finalConfigLocation = resolvePath(config.firebaseSecretsPath);
-  firebase.initializeApp({
-    credential: firebase.credential.cert(finalConfigLocation),
-    databaseURL: config.firebaseDatabaseUrl,
-  });
-  const db = firebase.firestore();
+  const env = environment();
+  const db = adminDb();
 
   const secretsJson = require(resolvePath(secretsJsonPath));
   const secrets = {

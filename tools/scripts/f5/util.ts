@@ -2,6 +2,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 const execa = require('execa');
 import * as nunjucks from 'nunjucks';
+import firebase from 'firebase-admin';
 
 nunjucks.configure({
   autoescape: false,
@@ -66,3 +67,18 @@ export const run = (
     child.on('data', msg => console.error(msg));
     child.on('exit', code => resolve(code));
 });
+
+
+export const adminDb = () => {
+  const fbConf = {
+    firebaseSecretsPath: './env/parm-app.json',
+    firebaseDatabaseUrl: 'https://parm-app.firebaseio.com',
+  }
+  let finalConfigLocation = resolve(fbConf.firebaseSecretsPath);
+  firebase.initializeApp({
+    credential: firebase.credential.cert(finalConfigLocation),
+    databaseURL: fbConf.firebaseDatabaseUrl,
+  });
+  const db = firebase.firestore();
+  return db;
+}
