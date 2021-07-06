@@ -41,7 +41,7 @@
     "@sendgrid/mail": "^6.5.2",
     "@svgr/plugin-jsx": "^4.3.3",
     "ace-builds": "^1.4.11",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "axios-observable": "^1.1.6",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.11.0",
