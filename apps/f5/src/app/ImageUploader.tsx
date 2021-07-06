@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import ImageUploader from 'react-images-upload';
+// import ImageUploader from 'react-images-upload';
 import Grid from '@material-ui/core/Grid';
 import { useImageUpload } from './firebase';
 import IconButton from '@material-ui/core/IconButton';
@@ -7,6 +7,7 @@ import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import Button from '@material-ui/core/Button';
 import { getImageUrl } from './utils';
 import { environment } from '../environments/environment';
+const ImageUploader = () => <div></div>;
   
 type onChange = (files: File[], pictures: string[]) => void
 const initialPending: File[] = [];

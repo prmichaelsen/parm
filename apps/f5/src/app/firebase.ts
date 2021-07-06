@@ -38,12 +38,19 @@ export interface RoleDocument {
   roles: string[];
 }
 
+export type OptionType =
+| 'prompt'
+| 'action'
+| 'redirect'
+| 'image'
+;
+
 export interface Option {
   parent: string;
   children: string[];
   text: string;
   id: string;
-  type: 'prompt' | 'action' | 'redirect';
+  type: OptionType;
   creatorId: string;
   createTime: firebase.firestore.Timestamp;
   isRoot?: boolean;
@@ -69,7 +76,7 @@ const initialState: State = {
 interface NodeBaseProps {
   text: string,
   parent: string,
-  type: 'prompt' | 'action' | 'redirect',
+  type: OptionType,
 }
 
 export type NodeCreateProps = NodeBaseProps & Partial<Option>;
