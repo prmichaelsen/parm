@@ -43,7 +43,7 @@
     "ace-builds": "^1.4.11",
     "axios": "^0.19.2",
     "axios-observable": "^1.1.6",
-    "class-transformer": "^0.2.3",
+    "class-transformer": "^0.3.1",
     "class-validator": "^0.11.0",
     "clsx": "^1.1.0",
     "conf": "^6.2.4",
